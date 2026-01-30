@@ -84,12 +84,16 @@ export function Footer() {
         </div>
 
         <div className="mt-16 border-t border-white/10 pt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs text-gray-500">
-            &copy; {currentYear} Kınalı Elektronik. Tüm hakları saklıdır.
+          <p className="text-xs text-slate-200">
+            &copy; {currentYear} K?nal? Elektronik. T?m haklar? sakl?d?r.
           </p>
-          <div className="flex gap-4 text-xs text-gray-500">
-            <Link href="#" className="hover:text-white transition-colors">Gizlilik Politikası</Link>
-            <Link href="#" className="hover:text-white transition-colors">Kullanım Şartları</Link>
+          <div className="flex gap-4 text-xs text-slate-200">
+            <Link href="#" className="hover:text-white transition-colors">
+              Gizlilik Politikas?
+            </Link>
+            <Link href="#" className="hover:text-white transition-colors">
+              Kullan?m ?artlar?
+            </Link>
           </div>
         </div>
       </div>

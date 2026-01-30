@@ -1,24 +1,32 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-import { auth } from "~/server/auth";
+const authCookieNames = [
+  "__Secure-next-auth.session-token",
+  "next-auth.session-token",
+];
 
-export default auth((req) => {
-  if (!req.nextUrl.pathname.startsWith("/admin")) {
+function hasAuthCookie(request: NextRequest) {
+  return authCookieNames.some((name) => request.cookies.get(name)?.value);
+}
+
+export default function middleware(request: NextRequest) {
+  if (!request.nextUrl.pathname.startsWith("/admin")) {
     return NextResponse.next();
   }
 
-  if (req.nextUrl.pathname.startsWith("/admin/login")) {
+  if (request.nextUrl.pathname.startsWith("/admin/login")) {
     return NextResponse.next();
   }
 
-  if (!req.auth?.user) {
-    const loginUrl = new URL("/admin/login", req.nextUrl.origin);
-    loginUrl.searchParams.set("from", req.nextUrl.pathname);
+  if (!hasAuthCookie(request)) {
+    const loginUrl = new URL("/admin/login", request.nextUrl.origin);
+    loginUrl.searchParams.set("from", request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ["/admin/:path*"],

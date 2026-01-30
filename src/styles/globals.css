@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand Colors */
+  --color-kinali-gold: #D4A853;
+  --color-kinali-gold-light: #E8C97A;
+  --color-kinali-header-start: #4A3728;
+  --color-kinali-header-end: #2D1F15;
+
+  /* Accent Colors */
+  --color-kinali-teal: #0D9488;
+  --color-kinali-teal-dark: #0F766E;
+  --color-kinali-whatsapp: #25D366;
+  --color-kinali-whatsapp-dark: #1FAD54;
+  --color-kinali-call: #2563EB;
+  --color-kinali-call-dark: #1D4ED8;
+
+  /* UI Colors */
+  --color-kinali-price: #E97132;
+  --color-kinali-bg: #F5F1E8;
+  --color-kinali-card: #FFFFFF;
+  --color-kinali-border: #E5E1D8;
+  --color-kinali-text: #1F2937;
+  --color-kinali-text-muted: #6B7280;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F5F1E8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}

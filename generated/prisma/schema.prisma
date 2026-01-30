@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@index([slug])
+}
+
+model Product {
+  id                    String         @id @default(cuid())
+  title                 String
+  slug                  String         @unique
+  description           String?
+  price                 Decimal        @db.Decimal(10, 2)
+  currency              String         @default("TRY")
+  productCode           String
+  normalizedProductCode String         @map("normalized_product_code")
+  brand                 String?
+  condition             String?
+  isFeatured            Boolean        @default(false)
+  isActive              Boolean        @default(true)
+  categoryId            String
+  category              Category       @relation(fields: [categoryId], references: [id])
+  images                ProductImage[]
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  @@index([normalizedProductCode])
+  @@index([categoryId])
+  @@index([isFeatured])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  position  Int      @default(0)
+  width     Int?
+  height    Int?
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, position])
+}

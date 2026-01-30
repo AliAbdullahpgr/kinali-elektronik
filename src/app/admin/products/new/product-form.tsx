@@ -10,8 +10,6 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { ClientUploadedFileData } from "uploadthing/types";
-
 import { UploadDropzone } from "~/app/_components/uploadthing";
 import { api } from "~/trpc/react";
 
@@ -27,14 +25,6 @@ type UploadImage = {
   width?: number;
   height?: number;
 };
-
-type UploadServerData = {
-  url: string;
-  key: string;
-  originalUrl?: string;
-};
-
-type UploadedFile = ClientUploadedFileData<UploadServerData>;
 
 type Product = {
   id: string;
@@ -65,26 +55,30 @@ function SortableImage({
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
-      className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-2"
+      className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition-all duration-200 hover:border-gray-300 hover:shadow-md"
     >
       <button
         type="button"
         {...attributes}
         {...listeners}
-        className="cursor-grab rounded-lg bg-gray-100 px-2 py-1 text-xs text-gray-600 transition hover:bg-gray-200"
+        className="flex h-8 w-8 cursor-grab items-center justify-center rounded-lg bg-gray-100 text-gray-400 transition-all duration-200 hover:bg-gray-200 hover:text-gray-600 active:cursor-grabbing active:scale-95"
       >
-        Sürükle
+        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M7 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+        </svg>
       </button>
-      <img
-        src={image.url}
-        alt={image.name}
-        className="h-12 w-12 rounded-lg border border-gray-200 object-cover"
-      />
-      <div className="flex-1 truncate text-xs text-gray-600">{image.name}</div>
+      <div className="relative h-14 w-14 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 transition-transform duration-200 group-hover:scale-105">
+        <img
+          src={image.url}
+          alt={image.name}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="flex-1 truncate text-sm text-gray-700">{image.name}</div>
       <button
         type="button"
         onClick={() => onRemove(image.id)}
-        className="rounded-lg bg-red-50 px-2 py-1 text-xs text-red-600 transition hover:bg-red-100"
+        className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-all duration-200 hover:bg-red-100 hover:scale-105 hover:shadow-sm"
       >
         Sil
       </button>
@@ -133,6 +127,7 @@ export function ProductForm({
     text: string;
   } | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isUploading, setIsUploading] = useState(false);
 
   const createProduct = api.product.create.useMutation({
     onSuccess: () => {
@@ -404,7 +399,7 @@ export function ProductForm({
           placeholder="Ürün hakkında detaylı bilgi..."
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-          className="min-h-30 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
+          className="min-h-[120px] rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
         />
       </div>
 
@@ -434,42 +429,76 @@ export function ProductForm({
           <label className="text-xs font-medium text-gray-600">
             Ürün Görselleri
           </label>
+
           <UploadDropzone
             endpoint="productImages"
-            onClientUploadComplete={(files: UploadedFile[]) => {
+            onUploadBegin={() => setIsUploading(true)}
+            onClientUploadComplete={(files) => {
+              setIsUploading(false);
               const mapped = files.map((file) => ({
-                id: file.serverData?.key ?? file.key,
-                url: file.serverData?.url ?? file.ufsUrl,
+                id: file.key,
+                url: file.ufsUrl ?? file.url,
                 name: file.name,
               }));
               setImages((prev) => [...prev, ...mapped]);
+              setMessage({ type: "success", text: `${files.length} görsel yüklendi.` });
             }}
             onUploadError={(error) => {
+              setIsUploading(false);
               setMessage({ type: "error", text: error.message });
             }}
-            className="border border-dashed border-gray-300 bg-gray-50"
+            config={{ mode: "auto" }}
+            appearance={{
+              container: `group relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 cursor-pointer transition-all duration-300 ease-out ${
+                isUploading
+                  ? "border-blue-400 bg-blue-50 scale-[1.02] shadow-lg shadow-blue-100"
+                  : "border-gray-300 bg-gray-50 hover:border-gray-900 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 hover:scale-[1.01]"
+              }`,
+              uploadIcon: `h-12 w-12 mb-3 transition-all duration-300 ${
+                isUploading
+                  ? "text-blue-500 animate-pulse"
+                  : "text-gray-400 group-hover:text-gray-900 group-hover:scale-110"
+              }`,
+              label: `text-sm font-medium text-center transition-colors duration-300 ${
+                isUploading ? "text-blue-600" : "text-gray-600 group-hover:text-gray-900"
+              }`,
+              allowedContent: "text-xs text-gray-400 mt-2 text-center",
+              button: `mt-4 rounded-xl px-6 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                isUploading
+                  ? "bg-blue-600 text-white cursor-wait scale-95"
+                  : "bg-gray-900 text-white hover:bg-gray-800 hover:scale-105 hover:shadow-lg"
+              }`,
+            }}
+            content={{
+              label: isUploading ? "Yükleniyor..." : "Görsel yüklemek için tıklayın veya sürükleyin",
+              allowedContent: "PNG, JPG, WEBP • Maks. 4MB • En fazla 8 görsel",
+              button: isUploading ? "Yükleniyor..." : "Dosya Seç",
+            }}
           />
-          <DndContext
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={images.map((item) => item.id)}
-              strategy={verticalListSortingStrategy}
+
+          {images.length > 0 && (
+            <DndContext
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
             >
-              <div className="grid gap-2">
-                {images.map((image) => (
-                  <SortableImage
-                    key={image.id}
-                    image={image}
-                    onRemove={(id) =>
-                      setImages((items) => items.filter((item) => item.id !== id))
-                    }
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
+              <SortableContext
+                items={images.map((item) => item.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="grid gap-2">
+                  {images.map((image) => (
+                    <SortableImage
+                      key={image.id}
+                      image={image}
+                      onRemove={(id) =>
+                        setImages((items) => items.filter((item) => item.id !== id))
+                      }
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
+          )}
         </div>
       )}
 
@@ -489,7 +518,7 @@ export function ProductForm({
       <div className="flex gap-3">
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || isUploading}
           className="flex-1 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending

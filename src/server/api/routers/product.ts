@@ -6,6 +6,7 @@ import { env } from "~/env";
 import {
   placeholderAdminProducts,
   placeholderFeaturedProducts,
+  placeholderProducts,
   placeholderProductBySlug,
   placeholderProductsByCategory,
   placeholderSearchProducts,
@@ -44,6 +45,19 @@ export const productRouter = createTRPCRouter({
         category: true,
       },
       take: 8,
+    });
+  }),
+  listAll: publicProcedure.query(async ({ ctx }) => {
+    if (usePlaceholderData) {
+      return placeholderProducts.filter((product) => product.isActive);
+    }
+    return ctx.db.product.findMany({
+      where: { isActive: true },
+      include: {
+        images: { orderBy: { position: "asc" }, take: 1 },
+        category: true,
+      },
+      orderBy: { updatedAt: "desc" },
     });
   }),
   listByCategory: publicProcedure

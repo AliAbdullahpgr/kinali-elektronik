@@ -4,34 +4,64 @@
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand Colors */
-  --color-kinali-gold: #D4A853;
-  --color-kinali-gold-light: #E8C97A;
-  --color-kinali-header-start: #4A3728;
-  --color-kinali-header-end: #2D1F15;
+  /* Modern Palette - Lux Tech */
+  --color-brand-dark: #121212;
+  --color-brand-gray: #27272a;
+  --color-brand-gold: #D4A853;
+  --color-brand-gold-hover: #b88d3f;
+  --color-brand-accent: #0f172a;
+  
+  --color-surface-50: #fafafa;
+  --color-surface-100: #f4f4f5;
+  --color-surface-200: #e4e4e7;
+  
+  --color-text-primary: #09090b;
+  --color-text-secondary: #52525b;
+  
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-error: #ef4444;
 
-  /* Accent Colors */
-  --color-kinali-teal: #0D9488;
-  --color-kinali-teal-dark: #0F766E;
-  --color-kinali-whatsapp: #25D366;
-  --color-kinali-whatsapp-dark: #1FAD54;
-  --color-kinali-call: #2563EB;
-  --color-kinali-call-dark: #1D4ED8;
+  /* Animation Durations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+}
 
-  /* UI Colors */
-  --color-kinali-price: #E97132;
-  --color-kinali-bg: #FAFAF9; /* Warm gray/Off-white for cleaner look */
-  --color-kinali-card: #FFFFFF;
-  --color-kinali-border: #E5E1D8;
-  --color-kinali-text: #1F2937;
-  --color-kinali-text-muted: #6B7280;
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-kinali-bg);
-  color: var(--color-kinali-text);
+  background-color: var(--color-surface-50);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #D4A853 0%, #a17a2f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Custom scrollbar */

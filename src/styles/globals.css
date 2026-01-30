@@ -20,7 +20,7 @@
 
   /* UI Colors */
   --color-kinali-price: #E97132;
-  --color-kinali-bg: #F5F1E8;
+  --color-kinali-bg: #FAFAF9; /* Warm gray/Off-white for cleaner look */
   --color-kinali-card: #FFFFFF;
   --color-kinali-border: #E5E1D8;
   --color-kinali-text: #1F2937;
@@ -29,7 +29,9 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: #F5F1E8;
+  background-color: var(--color-kinali-bg);
+  color: var(--color-kinali-text);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom scrollbar */

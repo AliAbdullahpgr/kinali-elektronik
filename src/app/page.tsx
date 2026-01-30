@@ -21,14 +21,10 @@ export default async function Home() {
         <SearchBar categories={categories} />
 
         {/* Categories */}
-        <div className="py-4">
-          <CategoryGrid categories={categories} />
-        </div>
+        <CategoryGrid categories={categories} />
 
         {/* Featured Products */}
-        <div className="py-4">
-          <FeaturedProducts products={featured} />
-        </div>
+        <FeaturedProducts products={featured} />
 
         {/* Sticky CTA */}
         <StickyCta />

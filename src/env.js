@@ -34,12 +34,9 @@ export const env = createEnv({
           .default(
             "postgresql://user:password@localhost:5432/kinali-placeholder?schema=public"
           ),
-    UPLOADTHING_SECRET: isProd
+    UPLOADTHING_TOKEN: isProd
       ? z.string().min(1)
-      : z.string().default("dev-uploadthing-secret"),
-    UPLOADTHING_APP_ID: isProd
-      ? z.string().min(1)
-      : z.string().default("dev-uploadthing-app"),
+      : z.string().optional(),
     USE_PLACEHOLDERS: z
       .enum(["true", "false"])
       .default(defaultPlaceholders)
@@ -72,8 +69,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     DATABASE_DIRECT_URL:
       process.env.DATABASE_DIRECT_URL ?? process.env.DATABASE_URL,
-    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
-    UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
     USE_PLACEHOLDERS: process.env.USE_PLACEHOLDERS ?? defaultPlaceholders,
     ADMIN_SEED_EMAIL: process.env.ADMIN_SEED_EMAIL,
     ADMIN_SEED_PASSWORD: process.env.ADMIN_SEED_PASSWORD,

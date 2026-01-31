@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, type FormEvent } from "react";
 
 const phoneNumber = process.env.NEXT_PUBLIC_CALL_NUMBER ?? "+905551234567";
 
@@ -17,13 +18,29 @@ function formatPhoneDisplay(phone: string) {
 }
 
 export function Header() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setSearchQuery(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmed = searchQuery.trim();
+    if (!trimmed) return;
+    setIsSearchOpen(false);
+    router.push(`/arama?q=${encodeURIComponent(trimmed)}`);
+  };
 
   return (
     <>
@@ -69,9 +86,45 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="hidden lg:flex items-center gap-2 rounded-full bg-surface-100 px-3 py-2 ring-1 ring-black/5"
+              role="search"
+            >
+              <svg
+                className="h-4 w-4 text-text-secondary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Urun ara..."
+                className="w-48 bg-transparent text-xs text-brand-dark placeholder:text-text-secondary focus:outline-none"
+                aria-label="Urun ara"
+              />
+              <button
+                type="submit"
+                className="rounded-full bg-brand-dark px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white transition hover:bg-black"
+              >
+                Ara
+              </button>
+            </form>
+
             <button
-              className="rounded-full p-2 text-text-secondary hover:bg-surface-200 transition-colors"
-              aria-label="Search"
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              className="rounded-full p-2 text-text-secondary hover:bg-surface-200 transition-colors lg:hidden"
+              aria-label="Ara"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -94,6 +147,53 @@ export function Header() {
           </div>
         </div>
       </header>
+
+      {isSearchOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/40 px-4 pt-24 lg:hidden"
+          onClick={() => setIsSearchOpen(false)}
+        >
+          <div
+            className="mx-auto w-full max-w-lg"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <form
+              onSubmit={handleSearchSubmit}
+              className="flex items-center gap-2 rounded-2xl bg-white p-4 shadow-xl"
+              role="search"
+            >
+              <svg
+                className="h-5 w-5 text-text-secondary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Urun ara..."
+                className="flex-1 text-sm text-brand-dark placeholder:text-text-secondary focus:outline-none"
+                aria-label="Urun ara"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="rounded-full bg-brand-dark px-4 py-2 text-xs font-bold uppercase tracking-wide text-white"
+              >
+                Ara
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }

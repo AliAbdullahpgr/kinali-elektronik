@@ -1,7 +1,6 @@
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
 import { Header } from "~/app/_components/header";
-import { SearchBar } from "~/app/_components/search-bar";
 import { StickyCta } from "~/app/_components/sticky-cta";
 
 type PageProps = {
@@ -14,18 +13,16 @@ export default async function SearchPage({ searchParams }: PageProps) {
   const category =
     typeof params?.category === "string" ? params.category : undefined;
 
-  const [results, categories] = await Promise.all([
-    query ? api.product.search({ query, categorySlug: category }) : [],
-    api.category.list(),
-  ]);
+  const results = query
+    ? await api.product.search({ query, categorySlug: category })
+    : category
+    ? await api.product.listByCategory({ slug: category })
+    : [];
 
   return (
     <main className="min-h-screen bg-kinali-bg pb-24">
       {/* Header */}
       <Header />
-
-      {/* Search Bar */}
-      <SearchBar categories={categories} />
 
       {/* Search Results */}
       <section className="px-3 py-4 sm:px-4 sm:py-6">
@@ -40,8 +37,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
           <p className="mb-3 text-xs text-gray-600 sm:mb-4 sm:text-sm">
             {query
-              ? `"${query}" için ${results.length} ürün bulundu`
-              : "Arama yapmak için yukarıdaki arama kutusunu kullanın."}
+              ? `"${query}" icin ${results.length} urun bulundu`
+              : category
+              ? `${category} kategorisinde ${results.length} urun bulundu`
+              : "Arama yapmak icin ustteki menuden arama yapin."}
           </p>
 
           {/* Results Grid */}
@@ -51,7 +50,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
-          ) : query ? (
+          ) : query || category ? (
             <div className="rounded-xl bg-white p-6 text-center shadow-sm sm:p-8">
               <p className="text-sm text-gray-500">
                 Aramanızla eşleşen ürün bulunamadı.

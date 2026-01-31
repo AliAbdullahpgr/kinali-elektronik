@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { api } from "~/trpc/server";
 import { Header } from "~/app/_components/header";
-import { SearchBar } from "~/app/_components/search-bar";
 import { StickyCta } from "~/app/_components/sticky-cta";
 
 type PageProps = {
@@ -14,8 +13,6 @@ export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
   const product = await api.product.bySlug({ slug });
   if (!product) return notFound();
-
-  const categories = await api.category.list();
 
   const whatsappNumber =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "+905551234567";
@@ -31,9 +28,6 @@ export default async function ProductPage({ params }: PageProps) {
     <main className="min-h-screen bg-kinali-bg pb-24">
       {/* Header */}
       <Header />
-
-      {/* Search Bar */}
-      <SearchBar categories={categories} />
 
       {/* Product Content */}
       <section className="px-4 py-6">

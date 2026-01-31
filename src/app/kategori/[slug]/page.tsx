@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
 import { Header } from "~/app/_components/header";
-import { SearchBar } from "~/app/_components/search-bar";
 import { StickyCta } from "~/app/_components/sticky-cta";
 
 type PageProps = {
@@ -39,24 +38,18 @@ export default async function CategoryPage({
   const minPrice = Number.isNaN(minCandidate ?? NaN) ? undefined : minCandidate;
   const maxPrice = Number.isNaN(maxCandidate ?? NaN) ? undefined : maxCandidate;
 
-  const [products, categories] = await Promise.all([
-    api.product.listByCategory({
-      slug,
-      brand,
-      condition,
-      minPrice,
-      maxPrice,
-    }),
-    api.category.list(),
-  ]);
+  const products = await api.product.listByCategory({
+    slug,
+    brand,
+    condition,
+    minPrice,
+    maxPrice,
+  });
 
   return (
     <main className="min-h-screen bg-kinali-bg pb-24">
       {/* Header */}
       <Header />
-
-      {/* Search Bar */}
-      <SearchBar categories={categories} />
 
       {/* Category Content */}
       <section className="px-3 py-4 sm:px-4 sm:py-6">

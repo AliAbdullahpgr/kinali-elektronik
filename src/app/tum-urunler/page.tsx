@@ -1,7 +1,6 @@
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
 import { Header } from "~/app/_components/header";
-import { SearchBar } from "~/app/_components/search-bar";
 import { StickyCta } from "~/app/_components/sticky-cta";
 
 export const metadata = {
@@ -10,18 +9,12 @@ export const metadata = {
 };
 
 export default async function AllProductsPage() {
-  const [products, categories] = await Promise.all([
-    api.product.listAll(),
-    api.category.list(),
-  ]);
+  const products = await api.product.listAll();
 
   return (
     <main className="min-h-screen bg-kinali-bg pb-24">
       {/* Header */}
       <Header />
-
-      {/* Search Bar */}
-      <SearchBar categories={categories} />
 
       {/* Products */}
       <section className="px-3 py-4 sm:px-4 sm:py-6">

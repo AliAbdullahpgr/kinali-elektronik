@@ -4,8 +4,6 @@ import { type Metadata } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { AuthProvider } from "~/app/_components/providers";
-import { auth } from "~/server/auth";
 
 export const metadata: Metadata = {
   title: "Kınalı Elektronik | Ürün Kataloğu",
@@ -26,14 +24,10 @@ const grotesk = Space_Grotesk({
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = await auth();
-
   return (
     <html lang="tr" className={`${jakarta.variable} ${grotesk.variable}`}>
       <body className="bg-kinali-bg text-slate-900">
-        <AuthProvider session={session}>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </AuthProvider>
+        <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
   );

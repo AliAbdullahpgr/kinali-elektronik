@@ -1,18 +1,27 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 export function LogoutButton() {
-  const handleLogout = async () => {
-    await signOut({ callbackUrl: "/admin/login" });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onLogout = async () => {
+    setIsLoading(true);
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } finally {
+      window.location.href = "/admin/login";
+    }
   };
 
   return (
     <button
-      onClick={handleLogout}
-      className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50"
+      type="button"
+      onClick={onLogout}
+      disabled={isLoading}
+      className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
     >
-      Çıkış Yap
+      {isLoading ? "Cikis..." : "Cikis Yap"}
     </button>
   );
 }

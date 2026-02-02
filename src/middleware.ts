@@ -1,14 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const authCookieNames = [
-  "__Secure-next-auth.session-token",
-  "next-auth.session-token",
-];
-
-function hasAuthCookie(request: NextRequest) {
-  return authCookieNames.some((name) => request.cookies.get(name)?.value);
-}
+import { ADMIN_COOKIE_NAME, isAdminCookieValid } from "~/server/admin-auth";
 
 export default function middleware(request: NextRequest) {
   if (!request.nextUrl.pathname.startsWith("/admin")) {
@@ -19,7 +12,8 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!hasAuthCookie(request)) {
+  const cookieValue = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
+  if (!isAdminCookieValid(cookieValue)) {
     const loginUrl = new URL("/admin/login", request.nextUrl.origin);
     loginUrl.searchParams.set("from", request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);

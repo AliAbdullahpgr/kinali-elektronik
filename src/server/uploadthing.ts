@@ -2,7 +2,8 @@ import { UploadThingError } from "@uploadthing/shared";
 import { createUploadthing } from "uploadthing/next";
 import { UTApi } from "uploadthing/server";
 
-import { auth } from "~/server/auth";
+import { cookies } from "next/headers";
+import { ADMIN_COOKIE_NAME, isAdminCookieValid } from "~/server/admin-auth";
 
 const f = createUploadthing();
 const utapi = new UTApi();
@@ -10,11 +11,12 @@ const utapi = new UTApi();
 export const uploadRouter = {
   productImages: f({ image: { maxFileCount: 8, maxFileSize: "4MB" } })
     .middleware(async () => {
-      const session = await auth();
-      if (!session?.user) {
+      const cookieStore = await cookies();
+      const cookieValue = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+      if (!isAdminCookieValid(cookieValue)) {
         throw new UploadThingError("Unauthorized");
       }
-      return { userId: session.user.id };
+      return { userId: "admin" };
     })
     .onUploadComplete(async ({ file }) => {
       try {

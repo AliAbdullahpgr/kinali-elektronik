@@ -1,9 +1,10 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function AdminLoginPage() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -14,19 +15,25 @@ export default function AdminLoginPage() {
     setError(null);
     setIsLoading(true);
 
-    const response = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    setIsLoading(false);
+      if (!response.ok) {
+        setError("E-posta veya sifre hatali.");
+        return;
+      }
 
-    if (response?.error) {
-      setError("E-posta veya şifre hatalı.");
-      return;
+      const from = searchParams.get("from") || "/admin";
+      window.location.href = from;
+    } catch {
+      setError("Giris yapilamadi. Tekrar deneyin.");
+    } finally {
+      setIsLoading(false);
     }
-    window.location.href = "/admin";
   };
 
   return (
@@ -35,7 +42,7 @@ export default function AdminLoginPage() {
         onSubmit={onSubmit}
         className="flex w-full max-w-sm flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
       >
-        <h1 className="text-lg font-semibold text-gray-900">Admin Giriş</h1>
+        <h1 className="text-lg font-semibold text-gray-900">Admin Giris</h1>
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-xs font-medium text-gray-600">
@@ -55,12 +62,12 @@ export default function AdminLoginPage() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="password" className="text-xs font-medium text-gray-600">
-            Şifre
+            Sifre
           </label>
           <input
             id="password"
             type="password"
-            placeholder="••••••••"
+            placeholder="********"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
@@ -80,7 +87,7 @@ export default function AdminLoginPage() {
           disabled={isLoading}
           className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
+          {isLoading ? "Giris yapiliyor..." : "Giris Yap"}
         </button>
       </form>
     </main>

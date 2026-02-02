@@ -11,10 +11,8 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { auth } from "~/server/auth";
 import { db } from "~/server/db";
-import { env } from "~/env";
-import type { AdminUser } from "@prisma/client";
+import { getAdminCookieFromHeader, isAdminCookieValid } from "~/server/admin-auth";
 
 /**
  * 1. CONTEXT
@@ -29,11 +27,14 @@ import type { AdminUser } from "@prisma/client";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth();
+  const cookieValue = getAdminCookieFromHeader(
+    opts.headers.get("cookie")
+  );
+  const isAdmin = isAdminCookieValid(cookieValue);
 
   return {
     db,
-    session,
+    isAdmin,
     ...opts,
   };
 };
@@ -113,53 +114,19 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 export const publicProcedure = t.procedure.use(timingMiddleware);
 
 /**
- * Protected (authenticated) procedure
+ * Protected (admin-only) procedure
  *
- * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
- * the session is valid and guarantees `ctx.session.user` is not null.
+ * If you want a query or mutation to ONLY be accessible to the hardcoded admin user, use this.
  *
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.session?.user) {
+    if (!ctx.isAdmin) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
-    return next({
-      ctx: {
-        // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
-      },
-    });
+    return next({ ctx });
   });
 
-export const adminProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-  const usePlaceholderData = env.USE_PLACEHOLDERS;
-  let admin: AdminUser | null = null;
-
-  if (usePlaceholderData) {
-    admin = {
-      id: ctx.session.user.id,
-      name: ctx.session.user.name ?? "Kinali Admin",
-      email: ctx.session.user.email ?? "admin@kinali.local",
-      passwordHash: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  } else {
-    admin = await ctx.db.adminUser.findUnique({
-      where: { id: ctx.session.user.id },
-    });
-
-    if (!admin) {
-      throw new TRPCError({ code: "FORBIDDEN" });
-    }
-  }
-
-  return next({
-    ctx: {
-      admin,
-    },
-  });
-});
+export const adminProcedure = protectedProcedure;

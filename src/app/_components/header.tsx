@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 
-const phoneNumber = process.env.NEXT_PUBLIC_CALL_NUMBER ?? "+905551234567";
+const phoneNumber = process.env.NEXT_PUBLIC_CALL_NUMBER ?? "+90 555 993 77 07";
 
 function formatPhoneDisplay(phone: string) {
   const digits = phone.replace(/\D/g, "");

@@ -53,7 +53,7 @@ export function Hero() {
               \u00dcr\u00fcnleri \u0130ncele
             </Link>
             <Link
-              href="https://wa.me/905551234567"
+              href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "+90 555 993 77 07").replace(/\D/g, "")}`}
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#22C55E] px-8 py-4 text-sm font-bold text-white shadow-lg shadow-[#22C55E]/30 transition-all hover:bg-[#1FB456]"
             >
               <svg

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 type Category = {
   id: string;
@@ -13,10 +13,10 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <h2 className="font-display text-3xl font-bold text-brand-dark sm:text-4xl">
-            Hizmetlerimiz ve \u00dcr\u00fcnler
+            Hizmetlerimiz ve Ürünler
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
-            \u0130htiyac\u0131n\u0131z olan \u00e7\u00f6z\u00fcm i\u00e7in kategorilerimize g\u00f6z at\u0131n.
+            İhtiyacınız olan çözüm için kategorilerimize göz atın.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
                 </h3>
 
                 <span className="mt-2 translate-y-2 text-[10px] font-medium uppercase tracking-wider text-brand-gold opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  \u0130ncele &rarr;
+                  İncele &rarr;
                 </span>
               </Link>
             );

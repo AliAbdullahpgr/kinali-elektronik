@@ -46,7 +46,7 @@ export function Header() {
     <>
       <div className="bg-brand-dark text-white px-4 py-2 text-[10px] sm:text-xs font-medium tracking-wider flex justify-between items-center z-50 relative">
         <span className="opacity-80">
-          G\u00dcNG\u00d6REN / \u0130STANBUL - HAFTANIN 7 G\u00dcN\u00dc A\u00c7IK
+          GÜNGÖREN / İSTANBUL - HAFTANIN 7 GÜNÜ AÇIK
         </span>
         <a
           href={`tel:${phoneNumber}`}
@@ -97,9 +97,9 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="\u00dcr\u00fcn ara..."
+                placeholder="Ürün ara..."
                 className="w-48 bg-transparent text-xs text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="\u00dcr\u00fcn ara"
+                aria-label="Ürün ara"
               />
               <button
                 type="submit"
@@ -173,9 +173,9 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="\u00dcr\u00fcn ara..."
+                placeholder="Ürün ara..."
                 className="flex-1 text-sm text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="\u00dcr\u00fcn ara"
+                aria-label="Ürün ara"
                 autoFocus
               />
               <button

@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { api } from "~/trpc/server";
@@ -27,10 +27,10 @@ export default async function ProductPage({ params }: PageProps) {
 
   const productDescription =
     product.description ??
-    `K\u0131nal\u0131 Elektronik'te ${product.title} \u00fcr\u00fcn\u00fcn\u00fc uygun fiyat ve h\u0131zl\u0131 ileti\u015fimle ke\u015ffedin.`;
+    `Kınalı Elektronik'te ${product.title} ürününü uygun fiyat ve hızlı iletişimle keşfedin.`;
 
   const whatsappMessage = encodeURIComponent(
-    `Merhaba, "${product.title}" (Kod: ${product.productCode}) \u00fcr\u00fcn\u00fc hakk\u0131nda bilgi almak istiyorum.`
+    `Merhaba, "${product.title}" (Kod: ${product.productCode}) ürünü hakkında bilgi almak istiyorum.`
   );
 
   const mainImage = product.images?.[0]?.url ?? "/placeholder-product.svg";
@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: PageProps) {
                   {product.title}
                 </h1>
                 <p className="mt-1 text-sm text-gray-500">
-                  \u00dcr\u00fcn Kodu: <span className="font-medium">{product.productCode}</span>
+                  Ürün Kodu: <span className="font-medium">{product.productCode}</span>
                 </p>
               </div>
 
@@ -203,7 +203,7 @@ export default async function ProductPage({ params }: PageProps) {
               {/* Description */}
               <p className="text-sm leading-relaxed text-gray-600">
                 {product.description ??
-                  "\u00dcr\u00fcn bilgileri k\u0131sa s\u00fcrede g\u00fcncellenecektir. Detayl\u0131 bilgi i\u00e7in bizimle ileti\u015fime ge\u00e7in."}
+                  "Ürün bilgileri kısa sürede güncellenecektir. Detaylı bilgi için bizimle iletişime geçin."}
               </p>
 
               {/* CTA Buttons */}
@@ -248,9 +248,9 @@ export async function generateMetadata({ params }: PageProps) {
   const canonical = `${baseUrl}/urun/${product.slug}`;
 
   return {
-    title: `${product.title} | K\u0131nal\u0131 Elektronik`,
+    title: `${product.title} | Kınalı Elektronik`,
     description:
-      product.description ?? `${product.title} \u00fcr\u00fcn\u00fc i\u00e7in fiyat ve detayl\u0131 bilgi al\u0131n.`,
+      product.description ?? `${product.title} ürünü için fiyat ve detaylı bilgi alın.`,
     alternates: { canonical },
   };
 }

@@ -1,4 +1,4 @@
-﻿import "~/styles/globals.css";
+import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
@@ -11,17 +11,17 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title:
-    "K\u0131nal\u0131 Elektronik | \u0130stanbul Elektronik Teknik Servis",
+    "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
   description:
-    "\u0130stanbul G\u00fcng\u00f6ren'de uygun fiyatl\u0131 elektronik servis, tamir, yedek par\u00e7a ve aksesuarlar. H\u0131zl\u0131 ileti\u015fim ve g\u00fcvenilir hizmet.",
+    "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar. Hızlı iletişim ve güvenilir hizmet.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     title:
-      "K\u0131nal\u0131 Elektronik | \u0130stanbul Elektronik Teknik Servis",
+      "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
     description:
-      "\u0130stanbul G\u00fcng\u00f6ren'de uygun fiyatl\u0131 elektronik servis, tamir, yedek par\u00e7a ve aksesuarlar.",
+      "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar.",
     url: siteUrl,
-    siteName: "K\u0131nal\u0131 Elektronik",
+    siteName: "Kınalı Elektronik",
     locale: "tr_TR",
     type: "website",
   },

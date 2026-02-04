@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
@@ -69,7 +69,7 @@ export default async function CategoryPage({
           </div>
 
           <p className="mb-3 text-xs text-gray-600 sm:mb-4 sm:text-sm">
-            {products.length} \u00fcr\u00fcn bulundu
+            {products.length} ürün bulundu
           </p>
 
           {/* Products Grid */}
@@ -82,7 +82,7 @@ export default async function CategoryPage({
           ) : (
             <div className="rounded-xl bg-white p-6 text-center shadow-sm sm:p-8">
               <p className="text-sm text-gray-500">
-                Bu kategoride hen\u00fcz \u00fcr\u00fcn bulunmuyor.
+                Bu kategoride henüz ürün bulunmuyor.
               </p>
             </div>
           )}
@@ -112,8 +112,8 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
   );
 
   return {
-    title: `${category.name} | K\u0131nal\u0131 Elektronik`,
-    description: `${category.name} kategorisindeki \u00fcr\u00fcnleri inceleyin.`,
+    title: `${category.name} | Kınalı Elektronik`,
+    description: `${category.name} kategorisindeki ürünleri inceleyin.`,
     alternates: { canonical },
     robots: {
       index: !hasFilters,

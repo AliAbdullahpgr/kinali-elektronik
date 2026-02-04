@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -14,7 +14,7 @@ export function Hero() {
           {/* Badge */}
           <div className="mb-6 inline-flex overflow-hidden rounded-full border border-brand-dark/10 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
             <span className="text-[10px] font-bold uppercase tracking-widest text-brand-dark sm:text-xs">
-              Premium Elektronik Tamir & Par\u00e7a
+              Premium Elektronik Tamir & Parça
             </span>
           </div>
 
@@ -22,7 +22,7 @@ export function Hero() {
           <h1 className="font-display text-4xl font-extrabold tracking-tight text-brand-dark sm:text-5xl md:text-6xl lg:text-7xl">
             Teknolojinize <br className="hidden sm:block" />
             <span className="relative bg-gradient-to-r from-brand-gold to-yellow-600 bg-clip-text text-transparent">
-              Profesyonel Dokunu\u015f
+              Profesyonel Dokunuş
               <svg
                 className="absolute -bottom-1 left-0 h-3 w-full text-brand-gold/30 -z-10"
                 viewBox="0 0 200 9"
@@ -40,8 +40,8 @@ export function Hero() {
 
           {/* Subheading */}
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg md:text-xl">
-            Telefon, tablet ve televizyon tamirinde 15 y\u0131ll\u0131k g\u00fcven.
-            Orijinal yedek par\u00e7a ve garantili i\u015f\u00e7ilik ile cihazlar\u0131n\u0131z\u0131 ilk g\u00fcnk\u00fc performans\u0131na kavu\u015fturuyoruz.
+            Telefon, tablet ve televizyon tamirinde 15 yıllık güven.
+            Orijinal yedek parça ve garantili işçilik ile cihazlarınızı ilk günkü performansına kavuşturuyoruz.
           </p>
 
           {/* Actions */}
@@ -50,7 +50,7 @@ export function Hero() {
               href="#products"
               className="inline-flex items-center justify-center rounded-lg bg-brand-dark px-8 py-4 text-sm font-bold text-white shadow-brand-dark/20 transition-all hover:bg-black hover:shadow-lg"
             >
-              \u00dcr\u00fcnleri \u0130ncele
+              Ürünleri İncele
             </Link>
             <Link
               href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "+90 555 993 77 07").replace(/\D/g, "")}`}
@@ -71,10 +71,10 @@ export function Hero() {
           {/* Stats / Trust Signals */}
           <div className="mt-16 grid w-full max-w-4xl grid-cols-2 gap-8 border-t border-brand-gray/10 pt-8 sm:mt-24 sm:grid-cols-4">
             {[
-              { label: "Mutlu M\u00fc\u015fteri", value: "10K+" },
-              { label: "Y\u0131ll\u0131k Tecr\u00fcbe", value: "15+" },
+              { label: "Mutlu Müşteri", value: "10K+" },
+              { label: "Yıllık Tecrübe", value: "15+" },
               { label: "Garanti", value: "%100" },
-              { label: "H\u0131zl\u0131 Teslimat", value: "24s" },
+              { label: "Hızlı Teslimat", value: "24s" },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center">
                 <span className="font-display text-2xl font-bold text-brand-dark sm:text-3xl">

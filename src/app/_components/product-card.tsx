@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 type Product = {
   id: string;
@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
   const currencyLabel = product.currency ?? "TL";
 
   const whatsappMessage = encodeURIComponent(
-    `Merhaba, "${product.title}" (Kod: ${product.productCode}) \u00fcr\u00fcn\u00fc hakk\u0131nda bilgi almak istiyorum.`
+    `Merhaba, "${product.title}" (Kod: ${product.productCode}) ürünü hakkında bilgi almak istiyorum.`
   );
 
   return (

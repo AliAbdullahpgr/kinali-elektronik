@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,7 +13,7 @@ export function Footer() {
               KINALI<span className="text-brand-gold">.</span>
             </h2>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
-              G\u00fcng\u00f6ren'in en g\u00fcvenilir elektronik teknik servisi. Apple, Samsung, Xiaomi ve t\u00fcm markalarda uzman onar\u0131m.
+              Güngören'in en güvenilir elektronik teknik servisi. Apple, Samsung, Xiaomi ve tüm markalarda uzman onarım.
             </p>
             <div className="flex gap-4 pt-2">
               {/* Social Icons (Placeholders) */}
@@ -33,15 +33,15 @@ export function Footer() {
           {/* Column 2: Quick Links */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-6">
-              H\u0131zl\u0131 Eri\u015fim
+              Hızlı Erişim
             </h3>
             <ul className="space-y-3 text-sm text-gray-400">
               {[
                 "Telefon Tamiri",
                 "Tablet Servisi",
-                "TV Onar\u0131m",
+                "TV Onarım",
                 "Aksesuar",
-                "Yedek Par\u00e7a",
+                "Yedek Parça",
               ].map((item) => (
                 <li key={item}>
                   <Link href="#" className="hover:text-white transition-colors">
@@ -55,7 +55,7 @@ export function Footer() {
           {/* Column 3: Contact */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-6">
-              \u0130leti\u015fim
+              İletişim
             </h3>
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
@@ -79,9 +79,9 @@ export function Footer() {
                   />
                 </svg>
                 <span>
-                  Merkez Mah. Fevzi \u00c7akmak Cad. No:12/A
+                  Merkez Mah. Fevzi Çakmak Cad. No:12/A
                   <br />
-                  G\u00fcng\u00f6ren / \u0130stanbul
+                  Güngören / İstanbul
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -122,11 +122,11 @@ export function Footer() {
           {/* Column 4: Hours */}
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-6">
-              \u00c7al\u0131\u015fma Saatleri
+              Çalışma Saatleri
             </h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex justify-between">
-                <span>Hafta \u0130\u00e7i</span>
+                <span>Hafta İçi</span>
                 <span className="text-white">09:00 - 20:00</span>
               </li>
               <li className="flex justify-between">
@@ -140,7 +140,7 @@ export function Footer() {
             </ul>
             <div className="mt-6 pt-6 border-t border-white/10">
               <div className="bg-white/5 rounded p-3 text-center text-xs text-gray-500">
-                15 Y\u0131ll\u0131k Tecr\u00fcbe ile Hizmetinizdeyiz
+                15 Yıllık Tecrübe ile Hizmetinizdeyiz
               </div>
             </div>
           </div>
@@ -148,14 +148,14 @@ export function Footer() {
 
         <div className="mt-16 border-t border-white/10 pt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs text-slate-200">
-            &copy; {currentYear} K\u0131nal\u0131 Elektronik. T\u00fcm haklar\u0131 sakl\u0131d\u0131r.
+            &copy; {currentYear} Kınalı Elektronik. Tüm hakları saklıdır.
           </p>
           <div className="flex gap-4 text-xs text-slate-200">
             <Link href="#" className="hover:text-white transition-colors">
-              Gizlilik Politikas\u0131
+              Gizlilik Politikası
             </Link>
             <Link href="#" className="hover:text-white transition-colors">
-              Kullan\u0131m \u015eartlar\u0131
+              Kullanım Şartları
             </Link>
           </div>
         </div>

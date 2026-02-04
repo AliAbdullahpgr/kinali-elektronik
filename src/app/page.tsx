@@ -1,4 +1,4 @@
-﻿import { api, HydrateClient } from "~/trpc/server";
+import { api, HydrateClient } from "~/trpc/server";
 import { CategoryGrid } from "./_components/category-grid";
 import { FeaturedProducts } from "./_components/featured-products";
 import { Header } from "./_components/header";
@@ -13,16 +13,16 @@ const contactPhone =
 
 export const metadata = {
   title:
-    "K\u0131nal\u0131 Elektronik | \u0130stanbul Elektronik Servis ve Uygun Fiyat",
+    "Kınalı Elektronik | İstanbul Elektronik Servis ve Uygun Fiyat",
   description:
-    "\u0130stanbul G\u00fcng\u00f6ren'de uygun fiyatl\u0131 elektronik servis, tamir, yedek par\u00e7a ve aksesuarlar. Telefon, tablet ve TV onar\u0131m\u0131nda h\u0131zl\u0131 hizmet.",
+    "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar. Telefon, tablet ve TV onarımında hızlı hizmet.",
   alternates: { canonical: siteUrl },
   openGraph: {
-    title: "K\u0131nal\u0131 Elektronik | \u0130stanbul Elektronik Servis",
+    title: "Kınalı Elektronik | İstanbul Elektronik Servis",
     description:
-      "\u0130stanbul G\u00fcng\u00f6ren'de uygun fiyatl\u0131 elektronik servis, tamir, yedek par\u00e7a ve aksesuarlar.",
+      "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar.",
     url: siteUrl,
-    siteName: "K\u0131nal\u0131 Elektronik",
+    siteName: "Kınalı Elektronik",
     locale: "tr_TR",
     type: "website",
   },
@@ -32,16 +32,16 @@ export default async function Home() {
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
     "@type": "ElectronicsStore",
-    name: "K\u0131nal\u0131 Elektronik",
+    name: "Kınalı Elektronik",
     url: siteUrl,
     telephone: contactPhone.replace(/\s/g, ""),
-    priceRange: "\u20ba\u20ba",
-    areaServed: "\u0130stanbul",
+    priceRange: "₺₺",
+    areaServed: "İstanbul",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Merkez Mah. Fevzi \u00c7akmak Cad. No:12/A",
-      addressLocality: "G\u00fcng\u00f6ren",
-      addressRegion: "\u0130stanbul",
+      streetAddress: "Merkez Mah. Fevzi Çakmak Cad. No:12/A",
+      addressLocality: "Güngören",
+      addressRegion: "İstanbul",
       addressCountry: "TR",
     },
     openingHoursSpecification: [
@@ -95,10 +95,10 @@ export default async function Home() {
             <div className="mx-auto max-w-2xl lg:max-w-none">
               <div className="text-center">
                 <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  Neden K\u0131nal\u0131 Elektronik?
+                  Neden Kınalı Elektronik?
                 </h2>
                 <p className="mt-4 text-lg leading-8 text-gray-300">
-                  Sadece bir tamirci de\u011fil, teknolojinizin g\u00fcvenilir orta\u011f\u0131n\u0131z.
+                  Sadece bir tamirci değil, teknolojinizin güvenilir ortağınız.
                 </p>
               </div>
               <dl className="mt-16 grid grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
@@ -119,11 +119,11 @@ export default async function Home() {
                         />
                       </svg>
                     </div>
-                    Orijinal Par\u00e7a Garantisi
+                    Orijinal Parça Garantisi
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
                     <p className="flex-auto">
-                      T\u00fcm onar\u0131mlarda ve sat\u0131\u015flarda %100 orijinal veya A kalite sertifikal\u0131 yedek par\u00e7alar kullan\u0131yoruz.
+                      Tüm onarımlarda ve satışlarda %100 orijinal veya A kalite sertifikalı yedek parçalar kullanıyoruz.
                     </p>
                   </dd>
                 </div>
@@ -144,11 +144,11 @@ export default async function Home() {
                         />
                       </svg>
                     </div>
-                    H\u0131zl\u0131 Teknik Servis
+                    Hızlı Teknik Servis
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
                     <p className="flex-auto">
-                      Cihazlar\u0131n\u0131z\u0131 bekletmiyoruz. Ekran de\u011fi\u015fimi ve batarya yenileme gibi i\u015flemleri 30 dakikada tamam\u0131yoruz.
+                      Cihazlarınızı bekletmiyoruz. Ekran değişimi ve batarya yenileme gibi işlemleri 30 dakikada tamamıyoruz.
                     </p>
                   </dd>
                 </div>
@@ -169,11 +169,11 @@ export default async function Home() {
                         />
                       </svg>
                     </div>
-                    Uygun Fiyat Politikas\u0131
+                    Uygun Fiyat Politikası
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
                     <p className="flex-auto">
-                      Kaliteli hizmeti, b\u00fct\u00e7e dostu fiyatlarla sunuyoruz. S\u00fcrpriz maliyetler yok, \u015feffaf fiyatland\u0131rma var.
+                      Kaliteli hizmeti, bütçe dostu fiyatlarla sunuyoruz. Sürpriz maliyetler yok, şeffaf fiyatlandırma var.
                     </p>
                   </dd>
                 </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -46,9 +46,12 @@ export function Header() {
     <>
       <div className="bg-brand-dark text-white px-4 py-2 text-[10px] sm:text-xs font-medium tracking-wider flex justify-between items-center z-50 relative">
         <span className="opacity-80">
-          GUNGOREN / ISTANBUL - HAFTANIN 7 GUNU ACIK
+          G\u00dcNG\u00d6REN / \u0130STANBUL - HAFTANIN 7 G\u00dcN\u00dc A\u00c7IK
         </span>
-        <a href={`tel:${phoneNumber}`} className="hover:text-brand-gold transition-colors">
+        <a
+          href={`tel:${phoneNumber}`}
+          className="hover:text-brand-gold transition-colors"
+        >
           {formatPhoneDisplay(phoneNumber)}
         </a>
       </div>
@@ -70,20 +73,6 @@ export function Header() {
               KINALI<span className="text-brand-gold">.</span>
             </h1>
           </Link>
-
-          <nav className="hidden md:flex items-center gap-8">
-            {["Anasayfa", "Kategoriler", "Hakkimizda", "Iletisim"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-sm font-medium text-text-secondary hover:text-brand-gold transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-brand-gold after:transition-all hover:after:w-full"
-                >
-                  {item}
-                </a>
-              )
-            )}
-          </nav>
 
           <div className="flex items-center gap-3">
             <form
@@ -108,9 +97,9 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Urun ara..."
+                placeholder="\u00dcr\u00fcn ara..."
                 className="w-48 bg-transparent text-xs text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="Urun ara"
+                aria-label="\u00dcr\u00fcn ara"
               />
               <button
                 type="submit"
@@ -126,7 +115,12 @@ export function Header() {
               className="rounded-full p-2 text-text-secondary hover:bg-surface-200 transition-colors lg:hidden"
               aria-label="Ara"
             >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -179,9 +173,9 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Urun ara..."
+                placeholder="\u00dcr\u00fcn ara..."
                 className="flex-1 text-sm text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="Urun ara"
+                aria-label="\u00dcr\u00fcn ara"
                 autoFocus
               />
               <button

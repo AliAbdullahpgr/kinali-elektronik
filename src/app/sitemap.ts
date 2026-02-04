@@ -3,7 +3,8 @@ import { db } from "~/server/db";
 import { placeholderCategories, placeholderProducts } from "~/server/utils/placeholders";
 
 export default async function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali.example.com";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali-elektronik.vercel.app";
 
   const usePlaceholderData = env.USE_PLACEHOLDERS;
   const [categories, products] = usePlaceholderData

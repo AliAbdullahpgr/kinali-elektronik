@@ -1,49 +1,60 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-surface-50 pt-16 pb-20 sm:pt-24 sm:pb-32 lg:pb-40">
+    <section className="relative overflow-hidden bg-surface-50 pb-20 pt-16 sm:pb-32 sm:pt-24 lg:pb-40">
       {/* Abstract Background Decoration */}
-      <div className="absolute top-0 left-1/2 w-full -translate-x-1/2 transform">
+      <div className="absolute left-1/2 top-0 w-full -translate-x-1/2 transform">
         <div className="absolute -top-24 left-0 h-[500px] w-[500px] rounded-full bg-brand-gold/10 blur-[100px]" />
-        <div className="absolute top-32 right-0 h-[300px] w-[300px] rounded-full bg-brand-dark/5 blur-[80px]" />
+        <div className="absolute right-0 top-32 h-[300px] w-[300px] rounded-full bg-brand-dark/5 blur-[80px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col items-center text-center">
           {/* Badge */}
-          <div className="mb-6 inline-flex overflow-hidden rounded-full border border-brand-dark/10 bg-white/50 py-1.5 px-4 backdrop-blur-sm">
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-brand-dark">
-              Premium Elektronik Tamir & Parça
+          <div className="mb-6 inline-flex overflow-hidden rounded-full border border-brand-dark/10 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-brand-dark sm:text-xs">
+              Premium Elektronik Tamir & Par\u00e7a
             </span>
           </div>
 
           {/* Heading */}
           <h1 className="font-display text-4xl font-extrabold tracking-tight text-brand-dark sm:text-5xl md:text-6xl lg:text-7xl">
             Teknolojinize <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-600 relative">
-              Profesyonel Dokunuş
-              <svg className="absolute w-full h-3 -bottom-1 left-0 text-brand-gold/30 -z-10" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C25.0009 10.9999 71.0016 14.4999 87.0019 3.49997C103.002 -7.50001 106.002 12.9998 198.006 1.99997" stroke="currentColor" strokeWidth="3"/></svg>
+            <span className="relative bg-gradient-to-r from-brand-gold to-yellow-600 bg-clip-text text-transparent">
+              Profesyonel Dokunu\u015f
+              <svg
+                className="absolute -bottom-1 left-0 h-3 w-full text-brand-gold/30 -z-10"
+                viewBox="0 0 200 9"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.00025 6.99997C25.0009 10.9999 71.0016 14.4999 87.0019 3.49997C103.002 -7.50001 106.002 12.9998 198.006 1.99997"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                />
+              </svg>
             </span>
           </h1>
 
           {/* Subheading */}
-          <p className="mx-auto mt-6 max-w-2xl text-base text-text-secondary sm:text-lg md:text-xl leading-relaxed">
-            Telefon, tablet ve televizyon tamirinde 15 yıllık güven. 
-            Orijinal yedek parça ve garantili işçilik ile cihazlarınızı ilk günkü performansına kavuşturuyoruz.
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg md:text-xl">
+            Telefon, tablet ve televizyon tamirinde 15 y\u0131ll\u0131k g\u00fcven.
+            Orijinal yedek par\u00e7a ve garantili i\u015f\u00e7ilik ile cihazlar\u0131n\u0131z\u0131 ilk g\u00fcnk\u00fc performans\u0131na kavu\u015fturuyoruz.
           </p>
 
           {/* Actions */}
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href="#products"
-              className="inline-flex items-center justify-center rounded-lg bg-brand-dark px-8 py-4 text-sm font-bold text-white transition-all hover:bg-black hover:shadow-lg shadow-brand-dark/20"
+              className="inline-flex items-center justify-center rounded-lg bg-brand-dark px-8 py-4 text-sm font-bold text-white shadow-brand-dark/20 transition-all hover:bg-black hover:shadow-lg"
             >
-              Ürünleri İncele
+              \u00dcr\u00fcnleri \u0130ncele
             </Link>
             <Link
               href="https://wa.me/905551234567"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#22C55E] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-[#1FB456] shadow-lg shadow-[#22C55E]/30"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#22C55E] px-8 py-4 text-sm font-bold text-white shadow-lg shadow-[#22C55E]/30 transition-all hover:bg-[#1FB456]"
             >
               <svg
                 className="h-4 w-4"
@@ -58,16 +69,20 @@ export function Hero() {
           </div>
 
           {/* Stats / Trust Signals */}
-          <div className="mt-16 sm:mt-24 grid grid-cols-2 gap-8 sm:grid-cols-4 border-t border-brand-gray/10 pt-8 w-full max-w-4xl">
+          <div className="mt-16 grid w-full max-w-4xl grid-cols-2 gap-8 border-t border-brand-gray/10 pt-8 sm:mt-24 sm:grid-cols-4">
             {[
-              { label: "Mutlu Müşteri", value: "10K+" },
-              { label: "Yıllık Tecrübe", value: "15+" },
+              { label: "Mutlu M\u00fc\u015fteri", value: "10K+" },
+              { label: "Y\u0131ll\u0131k Tecr\u00fcbe", value: "15+" },
               { label: "Garanti", value: "%100" },
-              { label: "Hızlı Teslimat", value: "24s" },
+              { label: "H\u0131zl\u0131 Teslimat", value: "24s" },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center">
-                <span className="font-display text-2xl font-bold text-brand-dark sm:text-3xl">{stat.value}</span>
-                <span className="text-xs font-medium uppercase tracking-wider text-text-secondary mt-1">{stat.label}</span>
+                <span className="font-display text-2xl font-bold text-brand-dark sm:text-3xl">
+                  {stat.value}
+                </span>
+                <span className="mt-1 text-xs font-medium uppercase tracking-wider text-text-secondary">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </div>

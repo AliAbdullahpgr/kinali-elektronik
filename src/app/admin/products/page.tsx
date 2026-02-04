@@ -26,14 +26,14 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-8">
+    <div className="mx-auto max-w-5xl space-y-6">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">Ürünler</h1>
+        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">rnler</h1>
         <Link
           href="/admin/products/new"
           className="shrink-0 rounded-xl bg-gray-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 sm:px-4 sm:py-2.5"
         >
-          Yeni Ürün
+          Yeni rn
         </Link>
       </div>
 
@@ -56,16 +56,16 @@ export default function AdminProductsPage() {
             </svg>
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-gray-900">Henüz ürün yok</p>
+            <p className="text-sm font-medium text-gray-900">Henz rn yok</p>
             <p className="text-xs text-gray-500">
-              Yeni ürün ekleyerek başlayın
+              Yeni rn ekleyerek balayn
             </p>
           </div>
           <Link
             href="/admin/products/new"
             className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
-            İlk Ürünü Ekle
+            lk rn Ekle
           </Link>
         </div>
       ) : (
@@ -109,7 +109,7 @@ export default function AdminProductsPage() {
                       href={`/admin/products/${product.id}/edit`}
                       className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                     >
-                      Düzenle
+                      Dzenle
                     </Link>
                     {showDeleteConfirm === product.id ? (
                       <div className="flex items-center gap-1">
@@ -124,7 +124,7 @@ export default function AdminProductsPage() {
                           onClick={() => setShowDeleteConfirm(null)}
                           className="rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                         >
-                          İptal
+                          ptal
                         </button>
                       </div>
                     ) : (
@@ -147,11 +147,11 @@ export default function AdminProductsPage() {
               <table className="w-full text-left text-sm text-gray-700">
                 <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500">
                   <tr>
-                    <th className="whitespace-nowrap px-4 py-3 font-medium">Ürün</th>
+                    <th className="whitespace-nowrap px-4 py-3 font-medium">rn</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Kategori</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Fiyat</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Durum</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-right font-medium">İşlemler</th>
+                    <th className="whitespace-nowrap px-4 py-3 text-right font-medium">lemler</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -196,7 +196,7 @@ export default function AdminProductsPage() {
                             href={`/admin/products/${product.id}/edit`}
                             className="whitespace-nowrap rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                           >
-                            Düzenle
+                            Dzenle
                           </Link>
                           {showDeleteConfirm === product.id ? (
                             <div className="flex items-center gap-1">
@@ -211,7 +211,7 @@ export default function AdminProductsPage() {
                                 onClick={() => setShowDeleteConfirm(null)}
                                 className="whitespace-nowrap rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                               >
-                                İptal
+                                ptal
                               </button>
                             </div>
                           ) : (
@@ -232,6 +232,6 @@ export default function AdminProductsPage() {
           </div>
         </>
       )}
-    </main>
+    </div>
   );
 }

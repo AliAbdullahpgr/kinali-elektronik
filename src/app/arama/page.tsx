@@ -1,3 +1,9 @@
+﻿export const metadata = {
+  title: "Arama Sonu\u00e7lar\u0131 | K\u0131nal\u0131 Elektronik",
+  description: "K\u0131nal\u0131 Elektronik \u00fcr\u00fcn arama sonu\u00e7lar\u0131.",
+  robots: { index: false, follow: true },
+};
+
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
 import { Header } from "~/app/_components/header";
@@ -30,17 +36,17 @@ export default async function SearchPage({ searchParams }: PageProps) {
           {/* Section Header */}
           <div className="mb-3 flex items-center gap-3 sm:mb-4 sm:gap-4">
             <h1 className="whitespace-nowrap font-display text-base font-semibold text-gray-900 sm:text-lg">
-              Arama Sonuçları
+              Arama Sonu\u00e7lar\u0131
             </h1>
             <div className="h-px flex-1 bg-gray-300" />
           </div>
 
           <p className="mb-3 text-xs text-gray-600 sm:mb-4 sm:text-sm">
             {query
-              ? `"${query}" icin ${results.length} urun bulundu`
+              ? `"${query}" i\u00e7in ${results.length} \u00fcr\u00fcn bulundu`
               : category
-              ? `${category} kategorisinde ${results.length} urun bulundu`
-              : "Arama yapmak icin ustteki menuden arama yapin."}
+              ? `${category} kategorisinde ${results.length} \u00fcr\u00fcn bulundu`
+              : "Arama yapmak i\u00e7in \u00fcstteki men\u00fcden arama yap\u0131n."}
           </p>
 
           {/* Results Grid */}
@@ -53,7 +59,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           ) : query || category ? (
             <div className="rounded-xl bg-white p-6 text-center shadow-sm sm:p-8">
               <p className="text-sm text-gray-500">
-                Aramanızla eşleşen ürün bulunamadı.
+                Araman\u0131zla e\u015fle\u015fen \u00fcr\u00fcn bulunamad\u0131.
               </p>
             </div>
           ) : null}

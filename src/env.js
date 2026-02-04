@@ -43,6 +43,8 @@ export const env = createEnv({
       .transform((value) => value === "true"),
     ADMIN_SEED_EMAIL: z.string().email().optional(),
     ADMIN_SEED_PASSWORD: z.string().min(8).optional(),
+    ADMIN_EMAIL: z.string().email().optional(),
+    ADMIN_PASSWORD: z.string().min(8).optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -73,6 +75,8 @@ export const env = createEnv({
     USE_PLACEHOLDERS: process.env.USE_PLACEHOLDERS ?? defaultPlaceholders,
     ADMIN_SEED_EMAIL: process.env.ADMIN_SEED_EMAIL,
     ADMIN_SEED_PASSWORD: process.env.ADMIN_SEED_PASSWORD,
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_WHATSAPP_NUMBER: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER,
     NEXT_PUBLIC_CALL_NUMBER: process.env.NEXT_PUBLIC_CALL_NUMBER,

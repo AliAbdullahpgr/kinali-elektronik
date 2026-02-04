@@ -11,8 +11,8 @@ export async function POST(request: Request) {
     | { email?: string; password?: string }
     | null;
 
-  const email = body?.email?.trim() ?? "";
-  const password = body?.password ?? "";
+  const email = body?.email?.trim() ? "";
+  const password = body?.password ? "";
 
   if (!verifyAdminCredentials(email, password)) {
     return NextResponse.json({ ok: false }, { status: 401 });

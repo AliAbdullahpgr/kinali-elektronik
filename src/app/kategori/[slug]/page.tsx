@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
@@ -35,8 +35,14 @@ export default async function CategoryPage({
     typeof searchParamsResolved?.max === "string"
       ? Number(searchParamsResolved.max)
       : undefined;
-  const minPrice = Number.isNaN(minCandidate ?? NaN) ? undefined : minCandidate;
-  const maxPrice = Number.isNaN(maxCandidate ?? NaN) ? undefined : maxCandidate;
+  const minPrice =
+    typeof minCandidate === "number" && !Number.isNaN(minCandidate)
+      ? minCandidate
+      : undefined;
+  const maxPrice =
+    typeof maxCandidate === "number" && !Number.isNaN(maxCandidate)
+      ? maxCandidate
+      : undefined;
 
   const products = await api.product.listByCategory({
     slug,
@@ -63,7 +69,7 @@ export default async function CategoryPage({
           </div>
 
           <p className="mb-3 text-xs text-gray-600 sm:mb-4 sm:text-sm">
-            {products.length} ürün bulundu
+            {products.length} \u00fcr\u00fcn bulundu
           </p>
 
           {/* Products Grid */}
@@ -76,7 +82,7 @@ export default async function CategoryPage({
           ) : (
             <div className="rounded-xl bg-white p-6 text-center shadow-sm sm:p-8">
               <p className="text-sm text-gray-500">
-                Bu kategoride henüz ürün bulunmuyor.
+                Bu kategoride hen\u00fcz \u00fcr\u00fcn bulunmuyor.
               </p>
             </div>
           )}
@@ -89,13 +95,29 @@ export default async function CategoryPage({
   );
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const category = await api.category.bySlug({ slug });
   if (!category) return {};
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali-elektronik.vercel.app";
+  const canonical = `${baseUrl}/kategori/${category.slug}`;
+  const searchParamsResolved = await searchParams;
+  const hasFilters = Boolean(
+    searchParamsResolved?.brand ||
+      searchParamsResolved?.condition ||
+      searchParamsResolved?.min ||
+      searchParamsResolved?.max
+  );
+
   return {
-    title: `${category.name} | Kınalı Elektronik`,
-    description: `${category.name} kategorisindeki ürünleri inceleyin.`,
+    title: `${category.name} | K\u0131nal\u0131 Elektronik`,
+    description: `${category.name} kategorisindeki \u00fcr\u00fcnleri inceleyin.`,
+    alternates: { canonical },
+    robots: {
+      index: !hasFilters,
+      follow: true,
+    },
   };
 }

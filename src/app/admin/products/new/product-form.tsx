@@ -103,24 +103,24 @@ export function ProductForm({
   const router = useRouter();
   const isEditing = !!product;
 
-  const [title, setTitle] = useState(product?.title ?? "");
-  const [slug, setSlug] = useState(product?.slug ?? "");
-  const [description, setDescription] = useState(product?.description ?? "");
-  const [price, setPrice] = useState(product?.price?.toString() ?? "");
-  const [productCode, setProductCode] = useState(product?.productCode ?? "");
-  const [brand, setBrand] = useState(product?.brand ?? "");
-  const [condition, setCondition] = useState(product?.condition ?? "Yeni");
+  const [title, setTitle] = useState(product?.title ? "");
+  const [slug, setSlug] = useState(product?.slug ? "");
+  const [description, setDescription] = useState(product?.description ? "");
+  const [price, setPrice] = useState(product?.price?.toString() ? "");
+  const [productCode, setProductCode] = useState(product?.productCode ? "");
+  const [brand, setBrand] = useState(product?.brand ? "");
+  const [condition, setCondition] = useState(product?.condition ? "Yeni");
   const [categoryId, setCategoryId] = useState(
-    product?.categoryId ?? categories[0]?.id ?? ""
+    product?.categoryId ? categories[0]?.id ? ""
   );
-  const [isFeatured, setIsFeatured] = useState(product?.isFeatured ?? false);
-  const [isActive, setIsActive] = useState(product?.isActive ?? true);
+  const [isFeatured, setIsFeatured] = useState(product?.isFeatured ? false);
+  const [isActive, setIsActive] = useState(product?.isActive ? true);
   const [images, setImages] = useState<UploadImage[]>(
     product?.images?.map((img) => ({
       id: img.id,
       url: img.url,
-      name: img.alt ?? "image",
-    })) ?? []
+      name: img.alt ? "image",
+    })) ? []
   );
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -131,7 +131,7 @@ export function ProductForm({
 
   const createProduct = api.product.create.useMutation({
     onSuccess: () => {
-      setMessage({ type: "success", text: "Ürün başarıyla kaydedildi." });
+      setMessage({ type: "success", text: "rn baaryla kaydedildi." });
       setTitle("");
       setSlug("");
       setDescription("");
@@ -145,21 +145,21 @@ export function ProductForm({
     onError: (error) => {
       setMessage({
         type: "error",
-        text: error.message || "Kayıt sırasında hata oluştu.",
+        text: error.message || "Kayt srasnda hata olutu.",
       });
     },
   });
 
   const updateProduct = api.product.update.useMutation({
     onSuccess: () => {
-      setMessage({ type: "success", text: "Ürün başarıyla güncellendi." });
+      setMessage({ type: "success", text: "rn baaryla gncellendi." });
       setErrors({});
       router.refresh();
     },
     onError: (error) => {
       setMessage({
         type: "error",
-        text: error.message || "Güncelleme sırasında hata oluştu.",
+        text: error.message || "Gncelleme srasnda hata olutu.",
       });
     },
   });
@@ -177,21 +177,21 @@ export function ProductForm({
     const newErrors: FormErrors = {};
 
     if (!title.trim()) {
-      newErrors.title = "Ürün adı zorunludur";
+      newErrors.title = "rn ad zorunludur";
     }
 
     if (!price.trim()) {
       newErrors.price = "Fiyat zorunludur";
     } else if (isNaN(Number(price)) || Number(price) < 0) {
-      newErrors.price = "Geçerli bir fiyat giriniz";
+      newErrors.price = "Geerli bir fiyat giriniz";
     }
 
     if (!productCode.trim()) {
-      newErrors.productCode = "Ürün kodu zorunludur";
+      newErrors.productCode = "rn kodu zorunludur";
     }
 
     if (!categoryId) {
-      newErrors.categoryId = "Kategori seçiniz";
+      newErrors.categoryId = "Kategori seiniz";
     }
 
     setErrors(newErrors);
@@ -245,11 +245,11 @@ export function ProductForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="title" className="text-xs font-medium text-gray-600">
-            Ürün Adı <span className="text-red-500">*</span>
+            rn Ad <span className="text-red-500">*</span>
           </label>
           <input
             id="title"
-            placeholder="Ürün adını giriniz"
+            placeholder="rn adn giriniz"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required
@@ -306,7 +306,7 @@ export function ProductForm({
             htmlFor="productCode"
             className="text-xs font-medium text-gray-600"
           >
-            Ürün Kodu <span className="text-red-500">*</span>
+            rn Kodu <span className="text-red-500">*</span>
           </label>
           <input
             id="productCode"
@@ -331,7 +331,7 @@ export function ProductForm({
           </label>
           <input
             id="brand"
-            placeholder="Marka adı"
+            placeholder="Marka ad"
             value={brand}
             onChange={(event) => setBrand(event.target.value)}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -352,7 +352,7 @@ export function ProductForm({
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
           >
             <option value="Yeni">Yeni</option>
-            <option value="Cikma">Çıkma</option>
+            <option value="Cikma">kma</option>
           </select>
         </div>
 
@@ -374,7 +374,7 @@ export function ProductForm({
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
             }`}
           >
-            <option value="">Kategori seçiniz</option>
+            <option value="">Kategori seiniz</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -392,11 +392,11 @@ export function ProductForm({
           htmlFor="description"
           className="text-xs font-medium text-gray-600"
         >
-          Ürün Açıklaması
+          rn Aklamas
         </label>
         <textarea
           id="description"
-          placeholder="Ürün hakkında detaylı bilgi..."
+          placeholder="rn hakknda detayl bilgi..."
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           className="min-h-[120px] rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -411,7 +411,7 @@ export function ProductForm({
             onChange={(event) => setIsFeatured(event.target.checked)}
             className="h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-400"
           />
-          Öne Çıkan
+          ne kan
         </label>
         <label className="flex cursor-pointer items-center gap-2">
           <input
@@ -427,7 +427,7 @@ export function ProductForm({
       {!isEditing && (
         <div className="flex flex-col gap-3">
           <label className="text-xs font-medium text-gray-600">
-            Ürün Görselleri
+            rn Grselleri
           </label>
 
           <UploadDropzone
@@ -437,11 +437,11 @@ export function ProductForm({
               setIsUploading(false);
               const mapped = files.map((file) => ({
                 id: file.key,
-                url: file.ufsUrl ?? file.url,
+                url: file.ufsUrl ? file.url,
                 name: file.name,
               }));
               setImages((prev) => [...prev, ...mapped]);
-              setMessage({ type: "success", text: `${files.length} görsel yüklendi.` });
+              setMessage({ type: "success", text: `${files.length} grsel yklendi.` });
             }}
             onUploadError={(error) => {
               setIsUploading(false);
@@ -470,9 +470,9 @@ export function ProductForm({
               }`,
             }}
             content={{
-              label: isUploading ? "Yükleniyor..." : "Görsel yüklemek için tıklayın veya sürükleyin",
-              allowedContent: "PNG, JPG, WEBP • Maks. 4MB • En fazla 8 görsel",
-              button: isUploading ? "Yükleniyor..." : "Dosya Seç",
+              label: isUploading ? "Ykleniyor..." : "Grsel yklemek iin tklayn veya srkleyin",
+              allowedContent: "PNG, JPG, WEBP  Maks. 4MB  En fazla 8 grsel",
+              button: isUploading ? "Ykleniyor..." : "Dosya Se",
             }}
           />
 
@@ -523,10 +523,10 @@ export function ProductForm({
         >
           {isPending
             ? isEditing
-              ? "Güncelleniyor..."
+              ? "Gncelleniyor..."
               : "Kaydediliyor..."
             : isEditing
-              ? "Güncelle"
+              ? "Gncelle"
               : "Kaydet"}
         </button>
         {isEditing && (
@@ -535,7 +535,7 @@ export function ProductForm({
             onClick={() => router.push("/admin/products")}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50"
           >
-            İptal
+            ptal
           </button>
         )}
       </div>

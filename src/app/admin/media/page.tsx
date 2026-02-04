@@ -16,7 +16,7 @@ export default function MediaLibraryPage() {
       productId: product.id,
       productCode: product.productCode,
     }))
-  ) ? [];
+  ) ?? [];
 
   const filteredImages = allImages.filter(
     (img) =>
@@ -108,7 +108,7 @@ export default function MediaLibraryPage() {
             >
               <img
                 src={image.url}
-                alt={image.alt ? image.productTitle}
+                alt={image.alt ?? image.productTitle}
                 className="h-full w-full object-cover transition group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition group-hover:opacity-100">
@@ -158,7 +158,7 @@ export default function MediaLibraryPage() {
                     <div className="h-12 w-12 overflow-hidden rounded-lg bg-gray-100">
                       <img
                         src={image.url}
-                        alt={image.alt ? image.productTitle}
+                        alt={image.alt ?? image.productTitle}
                         className="h-full w-full object-cover"
                       />
                     </div>
@@ -198,7 +198,7 @@ export default function MediaLibraryPage() {
           <p className="text-xs text-gray-500">Toplam Grsel</p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-white p-4 text-center">
-          <p className="text-2xl font-bold text-gray-900">{products?.length ? 0}</p>
+          <p className="text-2xl font-bold text-gray-900">{products?.length ?? 0}</p>
           <p className="text-xs text-gray-500">rn Says</p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-white p-4 text-center">

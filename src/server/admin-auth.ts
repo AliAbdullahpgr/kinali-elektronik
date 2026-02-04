@@ -1,5 +1,5 @@
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "";
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "";
 export const ADMIN_COOKIE_NAME = "kinali_admin_session";
 export const ADMIN_COOKIE_VALUE = "kinali_admin_ok";
 

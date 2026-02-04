@@ -103,24 +103,24 @@ export function ProductForm({
   const router = useRouter();
   const isEditing = !!product;
 
-  const [title, setTitle] = useState(product?.title ? "");
-  const [slug, setSlug] = useState(product?.slug ? "");
-  const [description, setDescription] = useState(product?.description ? "");
-  const [price, setPrice] = useState(product?.price?.toString() ? "");
-  const [productCode, setProductCode] = useState(product?.productCode ? "");
-  const [brand, setBrand] = useState(product?.brand ? "");
-  const [condition, setCondition] = useState(product?.condition ? "Yeni");
+  const [title, setTitle] = useState(product?.title ?? "");
+  const [slug, setSlug] = useState(product?.slug ?? "");
+  const [description, setDescription] = useState(product?.description ?? "");
+  const [price, setPrice] = useState(product?.price?.toString() ?? "");
+  const [productCode, setProductCode] = useState(product?.productCode ?? "");
+  const [brand, setBrand] = useState(product?.brand ?? "");
+  const [condition, setCondition] = useState(product?.condition ?? "Yeni");
   const [categoryId, setCategoryId] = useState(
-    product?.categoryId ? categories[0]?.id ? ""
+    product?.categoryId ?? categories[0]?.id ?? ""
   );
-  const [isFeatured, setIsFeatured] = useState(product?.isFeatured ? false);
-  const [isActive, setIsActive] = useState(product?.isActive ? true);
+  const [isFeatured, setIsFeatured] = useState(product?.isFeatured ?? false);
+  const [isActive, setIsActive] = useState(product?.isActive ?? true);
   const [images, setImages] = useState<UploadImage[]>(
     product?.images?.map((img) => ({
       id: img.id,
       url: img.url,
-      name: img.alt ? "image",
-    })) ? []
+      name: img.alt ?? "image",
+    })) ?? []
   );
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -437,7 +437,7 @@ export function ProductForm({
               setIsUploading(false);
               const mapped = files.map((file) => ({
                 id: file.key,
-                url: file.ufsUrl ? file.url,
+                url: file.ufsUrl ?? file.url,
                 name: file.name,
               }));
               setImages((prev) => [...prev, ...mapped]);

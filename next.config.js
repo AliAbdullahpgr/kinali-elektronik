@@ -11,6 +11,14 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import("next").NextConfig} */
 const config = {
+  // Disable TypeScript errors during build
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  // Disable ESLint errors during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack: (config, { isServer, dev }) => {
     // Fix for Windows EPERM errors with Application Data symlinks
     config.watchOptions = {

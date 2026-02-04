@@ -14,8 +14,8 @@ export default function FeaturedProductsPage() {
     },
   });
 
-  const featuredProducts = products?.filter((p) => p.isFeatured) ? [];
-  const nonFeaturedProducts = products?.filter((p) => !p.isFeatured) ? [];
+  const featuredProducts = products?.filter((p) => p.isFeatured) ?? [];
+  const nonFeaturedProducts = products?.filter((p) => !p.isFeatured) ?? [];
 
   const filteredNonFeatured = nonFeaturedProducts.filter(
     (p) =>
@@ -30,7 +30,7 @@ export default function FeaturedProductsPage() {
     updateMutation.mutate({
       id: productId,
       title: product.title,
-      description: product.description ? "",
+      description: product.description ?? "",
       price: Number(product.price),
       productCode: product.productCode,
       categoryId: product.categoryId,
@@ -38,7 +38,7 @@ export default function FeaturedProductsPage() {
       isActive: product.isActive,
       images: product.images.map((img) => ({
         url: img.url,
-        alt: img.alt ? undefined,
+        alt: img.alt ?? undefined,
       })),
     });
   };

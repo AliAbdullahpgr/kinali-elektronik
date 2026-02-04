@@ -36,8 +36,8 @@ export const uploadRouter = {
         const uploaded = await utapi.uploadFiles(webpFile);
 
         return {
-          url: uploaded.data?.url ? file.url,
-          key: uploaded.data?.key ? file.key,
+          url: uploaded.data?.url ?? file.url,
+          key: uploaded.data?.key ?? file.key,
           originalUrl: file.url,
         };
       } catch {

@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   title:
     "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
   description:
-    "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar. Hızlı iletişim ve güvenilir hizmet.",
+    "2004 yılından günümüze televizyon, telefon, uydu ve kamera teknik servis hizmetleri. Haznedar Mah. Şevketdağ Cd. No:88 Güngören/İstanbul.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     title:
       "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
     description:
-      "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar.",
+      "2004 yılından günümüze güvenle televizyon, telefon, uydu ve kamera teknik servis hizmetleri.",
     url: siteUrl,
     siteName: "Kınalı Elektronik",
     locale: "tr_TR",

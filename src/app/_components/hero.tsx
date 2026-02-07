@@ -40,8 +40,9 @@ export function Hero() {
 
           {/* Subheading */}
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg md:text-xl">
-            Telefon, tablet ve televizyon tamirinde 15 yıllık güven.
-            Orijinal yedek parça ve garantili işçilik ile cihazlarınızı ilk günkü performansına kavuşturuyoruz.
+            2004 yılından günümüze güvenle; televizyon, telefon, uydu ve kamera
+            teknik servis hizmetleri sunuyoruz. Orijinal yedek parça ve garantili
+            işçilik ile cihazlarınızı ilk günkü performansına kavuşturuyoruz.
           </p>
 
           {/* Actions */}
@@ -72,7 +73,7 @@ export function Hero() {
           <div className="mt-16 grid w-full max-w-4xl grid-cols-2 gap-8 border-t border-brand-gray/10 pt-8 sm:mt-24 sm:grid-cols-4">
             {[
               { label: "Mutlu Müşteri", value: "10K+" },
-              { label: "Yıllık Tecrübe", value: "15+" },
+              { label: "Yıllık Tecrübe", value: "22+" },
               { label: "Garanti", value: "%100" },
               { label: "Hızlı Teslimat", value: "24s" },
             ].map((stat) => (

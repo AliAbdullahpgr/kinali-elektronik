@@ -13,7 +13,8 @@ export function Footer() {
               KINALI<span className="text-brand-gold">.</span>
             </h2>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
-              Güngören'in en güvenilir elektronik teknik servisi. Apple, Samsung, Xiaomi ve tüm markalarda uzman onarım.
+              2004 yılından günümüze güvenle hizmet veren Kınalı Elektrik;
+              televizyon, telefon, uydu ve kamera teknik servis hizmetleri sunar.
             </p>
             <div className="flex gap-4 pt-2">
               {/* Social Icons (Placeholders) */}
@@ -37,11 +38,11 @@ export function Footer() {
             </h3>
             <ul className="space-y-3 text-sm text-gray-400">
               {[
-                "Telefon Tamiri",
-                "Tablet Servisi",
-                "TV Onarım",
-                "Aksesuar",
-                "Yedek Parça",
+                "Televizyon Servisi",
+                "Telefon Servisi",
+                "Uydu Servisi",
+                "Kamera Servisi",
+                "Teknik Servis Hizmetleri",
               ].map((item) => (
                 <li key={item}>
                   <Link href="#" className="hover:text-white transition-colors">
@@ -79,7 +80,7 @@ export function Footer() {
                   />
                 </svg>
                 <span>
-                  Merkez Mah. Fevzi Çakmak Cad. No:12/A
+                  Haznedar Mah. Şevketdağ Cd. No:88
                   <br />
                   Güngören / İstanbul
                 </span>
@@ -127,20 +128,20 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex justify-between">
                 <span>Hafta İçi</span>
-                <span className="text-white">09:00 - 20:00</span>
+                <span className="text-white">10:00 - 20:00</span>
               </li>
               <li className="flex justify-between">
                 <span>Cumartesi</span>
-                <span className="text-white">09:00 - 20:00</span>
+                <span className="text-white">10:00 - 20:00</span>
               </li>
               <li className="flex justify-between">
                 <span>Pazar</span>
-                <span className="text-white">11:00 - 18:00</span>
+                <span className="text-white">Kapalı</span>
               </li>
             </ul>
             <div className="mt-6 pt-6 border-t border-white/10">
               <div className="bg-white/5 rounded p-3 text-center text-xs text-gray-500">
-                15 Yıllık Tecrübe ile Hizmetinizdeyiz
+                22 Yıllık Tecrübe ile Hizmetinizdeyiz
               </div>
             </div>
           </div>

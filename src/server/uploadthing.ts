@@ -8,42 +8,49 @@ import { ADMIN_COOKIE_NAME, isAdminCookieValid } from "~/server/admin-auth";
 const f = createUploadthing();
 const utapi = new UTApi();
 
+const ensureAdmin = async () => {
+  const cookieStore = await cookies();
+  const cookieValue = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+  if (!isAdminCookieValid(cookieValue)) {
+    throw new UploadThingError("Unauthorized");
+  }
+  return { userId: "admin" };
+};
+
+const optimizeAndUploadImage = async (file: { url: string; name: string; key: string }) => {
+  try {
+    const response = await fetch(file.url);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const sharp = (await import("sharp")).default;
+    const webp = await sharp(buffer)
+      .resize({ width: 800, withoutEnlargement: true })
+      .webp({ quality: 82 })
+      .toBuffer();
+
+    const webpFile = new File(
+      [new Uint8Array(webp)],
+      file.name.replace(/\.[^/.]+$/, ".webp"),
+      { type: "image/webp" }
+    );
+    const uploaded = await utapi.uploadFiles(webpFile);
+
+    return {
+      url: uploaded.data?.url ?? file.url,
+      key: uploaded.data?.key ?? file.key,
+      originalUrl: file.url,
+    };
+  } catch {
+    return { url: file.url, key: file.key };
+  }
+};
+
 export const uploadRouter = {
   productImages: f({ image: { maxFileCount: 8, maxFileSize: "4MB" } })
-    .middleware(async () => {
-      const cookieStore = await cookies();
-      const cookieValue = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
-      if (!isAdminCookieValid(cookieValue)) {
-        throw new UploadThingError("Unauthorized");
-      }
-      return { userId: "admin" };
-    })
-    .onUploadComplete(async ({ file }) => {
-      try {
-        const response = await fetch(file.url);
-        const buffer = Buffer.from(await response.arrayBuffer());
-        const sharp = (await import("sharp")).default;
-        const webp = await sharp(buffer)
-          .resize({ width: 800, withoutEnlargement: true })
-          .webp({ quality: 82 })
-          .toBuffer();
-
-        const webpFile = new File(
-          [new Uint8Array(webp)],
-          file.name.replace(/\.[^/.]+$/, ".webp"),
-          { type: "image/webp" }
-        );
-        const uploaded = await utapi.uploadFiles(webpFile);
-
-        return {
-          url: uploaded.data?.url ?? file.url,
-          key: uploaded.data?.key ?? file.key,
-          originalUrl: file.url,
-        };
-      } catch {
-        return { url: file.url, key: file.key };
-      }
-    }),
+    .middleware(ensureAdmin)
+    .onUploadComplete(async ({ file }) => optimizeAndUploadImage(file)),
+  categoryImages: f({ image: { maxFileCount: 1, maxFileSize: "4MB" } })
+    .middleware(ensureAdmin)
+    .onUploadComplete(async ({ file }) => optimizeAndUploadImage(file)),
 };
 
 export type UploadRouter = typeof uploadRouter;

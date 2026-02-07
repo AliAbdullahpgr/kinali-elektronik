@@ -15,12 +15,12 @@ export const metadata = {
   title:
     "Kınalı Elektronik | İstanbul Elektronik Servis ve Uygun Fiyat",
   description:
-    "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar. Telefon, tablet ve TV onarımında hızlı hizmet.",
+    "Haznedar Mah. Şevketdağ Cd. No:88 Güngören/İstanbul adresinde, 2004 yılından günümüze televizyon, telefon, uydu ve kamera teknik servis hizmetleri.",
   alternates: { canonical: siteUrl },
   openGraph: {
     title: "Kınalı Elektronik | İstanbul Elektronik Servis",
     description:
-      "İstanbul Güngören'de uygun fiyatlı elektronik servis, tamir, yedek parça ve aksesuarlar.",
+      "2004 yılından günümüze güvenle televizyon, telefon, uydu ve kamera teknik servis hizmetleri.",
     url: siteUrl,
     siteName: "Kınalı Elektronik",
     locale: "tr_TR",
@@ -39,7 +39,7 @@ export default async function Home() {
     areaServed: "İstanbul",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Merkez Mah. Fevzi Çakmak Cad. No:12/A",
+      streetAddress: "Haznedar Mah. Şevketdağ Cd. No:88",
       addressLocality: "Güngören",
       addressRegion: "İstanbul",
       addressCountry: "TR",
@@ -55,14 +55,8 @@ export default async function Home() {
           "Friday",
           "Saturday",
         ],
-        opens: "09:00",
+        opens: "10:00",
         closes: "20:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "11:00",
-        closes: "18:00",
       },
     ],
   };

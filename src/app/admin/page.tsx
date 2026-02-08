@@ -7,7 +7,7 @@ export default async function AdminDashboardPage() {
 
   const quickActions = [
     {
-      label: "Yeni rn Ekle",
+      label: "Yeni Ürün Ekle",
       href: "/admin/products/new",
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -17,7 +17,7 @@ export default async function AdminDashboardPage() {
       color: "bg-blue-500 hover:bg-blue-600",
     },
     {
-      label: "Kategorileri Ynet",
+      label: "Kategorileri Yönet",
       href: "/admin/categories",
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -27,7 +27,7 @@ export default async function AdminDashboardPage() {
       color: "bg-purple-500 hover:bg-purple-600",
     },
     {
-      label: "ne kanlar Dzenle",
+      label: "Öne Çıkanları Düzenle",
       href: "/admin/featured",
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,7 +37,7 @@ export default async function AdminDashboardPage() {
       color: "bg-amber-500 hover:bg-amber-600",
     },
     {
-      label: "Siteyi Grntle",
+      label: "Siteyi Görüntüle",
       href: "/",
       icon: (
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,12 +51,11 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
-      {/* Welcome Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Ho geldiniz!</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Hoş geldiniz!</h1>
           <p className="text-sm text-gray-500 mt-1">
-            Maazanzn genel durumunu buradan takip edebilirsiniz.
+            Mağazanızın genel durumunu buradan takip edebilirsiniz.
           </p>
         </div>
         <Link
@@ -66,15 +65,14 @@ export default async function AdminDashboardPage() {
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          Yeni rn Ekle
+          Yeni Ürün Ekle
         </Link>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {[
           {
-            label: "Toplam rn",
+            label: "Toplam Ürün",
             value: stats.productCount,
             icon: (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,7 +96,7 @@ export default async function AdminDashboardPage() {
             href: "/admin/categories",
           },
           {
-            label: "ne kan",
+            label: "Öne Çıkan",
             value: stats.featuredCount,
             icon: (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,7 +108,7 @@ export default async function AdminDashboardPage() {
             href: "/admin/featured",
           },
           {
-            label: "Aktif rn",
+            label: "Aktif Ürün",
             value: stats.productCount,
             icon: (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,9 +141,8 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* Quick Actions */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hzl lemler</h2>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hızlı İşlemler</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {quickActions.map((action) => (
             <Link
@@ -161,16 +158,14 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Recent Activity & Tips */}
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent Updates */}
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Son Gncellemeler</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Son Güncellemeler</h2>
           <div className="space-y-4">
             {[
-              { action: "Sistem gncellendi", time: "Bugn", icon: "" },
-              { action: "Yeni zellikler eklendi", time: "Dn", icon: "" },
-              { action: "Performans iyiletirmeleri", time: "2 gn nce", icon: "" },
+              { action: "Sistem güncellendi", time: "Bugün", icon: "" },
+              { action: "Yeni özellikler eklendi", time: "Dün", icon: "" },
+              { action: "Performans iyileştirmeleri", time: "2 gün önce", icon: "" },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0">
                 <span className="text-xl">{item.icon}</span>
@@ -183,14 +178,13 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Tips */}
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">pular</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">İpuçları</h2>
           <div className="space-y-4">
             {[
-              { tip: "rnlerinize birden fazla fotoraf ekleyin", desc: "Daha fazla sat iin" },
-              { tip: "Kategorileri dzenli tutun", desc: "Mteri deneyimini iyiletirir" },
-              { tip: "ne kan rnleri gncel tutun", desc: "Ana sayfada grnr" },
+              { tip: "Ürünlerinize birden fazla fotoğraf ekleyin", desc: "Daha fazla satış için" },
+              { tip: "Kategorileri düzenli tutun", desc: "Müşteri deneyimini iyileştirir" },
+              { tip: "Öne çıkan ürünleri güncel tutun", desc: "Ana sayfada görünür" },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0">
                 <div className="h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center shrink-0">

@@ -11,6 +11,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { UploadDropzone } from "~/app/_components/uploadthing";
+import { toRomanTurkishSlug } from "~/lib/turkish";
 import { api } from "~/trpc/react";
 
 type Category = {
@@ -131,7 +132,7 @@ export function ProductForm({
 
   const createProduct = api.product.create.useMutation({
     onSuccess: () => {
-      setMessage({ type: "success", text: "rn baaryla kaydedildi." });
+      setMessage({ type: "success", text: "Ürün başarıyla kaydedildi." });
       setTitle("");
       setSlug("");
       setDescription("");
@@ -145,21 +146,21 @@ export function ProductForm({
     onError: (error) => {
       setMessage({
         type: "error",
-        text: error.message || "Kayt srasnda hata olutu.",
+        text: error.message || "Kayıt sırasında hata oluştu.",
       });
     },
   });
 
   const updateProduct = api.product.update.useMutation({
     onSuccess: () => {
-      setMessage({ type: "success", text: "rn baaryla gncellendi." });
+      setMessage({ type: "success", text: "Ürün başarıyla güncellendi." });
       setErrors({});
       router.refresh();
     },
     onError: (error) => {
       setMessage({
         type: "error",
-        text: error.message || "Gncelleme srasnda hata olutu.",
+        text: error.message || "Güncelleme sırasında hata oluştu.",
       });
     },
   });
@@ -177,21 +178,21 @@ export function ProductForm({
     const newErrors: FormErrors = {};
 
     if (!title.trim()) {
-      newErrors.title = "rn ad zorunludur";
+      newErrors.title = "Ürün adı zorunludur";
     }
 
     if (!price.trim()) {
       newErrors.price = "Fiyat zorunludur";
     } else if (isNaN(Number(price)) || Number(price) < 0) {
-      newErrors.price = "Geerli bir fiyat giriniz";
+      newErrors.price = "Geçerli bir fiyat giriniz";
     }
 
     if (!productCode.trim()) {
-      newErrors.productCode = "rn kodu zorunludur";
+      newErrors.productCode = "Ürün kodu zorunludur";
     }
 
     if (!categoryId) {
-      newErrors.categoryId = "Kategori seiniz";
+      newErrors.categoryId = "Kategori seçiniz";
     }
 
     setErrors(newErrors);
@@ -208,7 +209,7 @@ export function ProductForm({
 
     const data = {
       title,
-      slug: slug || title.toLowerCase().replace(/\s+/g, "-"),
+      slug: slug || toRomanTurkishSlug(title),
       description: description || null,
       price: Number(price),
       productCode,
@@ -245,11 +246,11 @@ export function ProductForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="title" className="text-xs font-medium text-gray-600">
-            rn Ad <span className="text-red-500">*</span>
+            Ürün Adı <span className="text-red-500">*</span>
           </label>
           <input
             id="title"
-            placeholder="rn adn giriniz"
+            placeholder="Ürün adını giriniz"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required
@@ -266,11 +267,11 @@ export function ProductForm({
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="slug" className="text-xs font-medium text-gray-600">
-            Slug (opsiyonel)
+            URL Kısa Adı (opsiyonel)
           </label>
           <input
             id="slug"
-            placeholder="otomatik-olusturulur"
+            placeholder="otomatik-oluşturulur"
             value={slug}
             onChange={(event) => setSlug(event.target.value)}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -306,7 +307,7 @@ export function ProductForm({
             htmlFor="productCode"
             className="text-xs font-medium text-gray-600"
           >
-            rn Kodu <span className="text-red-500">*</span>
+            Ürün Kodu <span className="text-red-500">*</span>
           </label>
           <input
             id="productCode"
@@ -331,7 +332,7 @@ export function ProductForm({
           </label>
           <input
             id="brand"
-            placeholder="Marka ad"
+            placeholder="Marka adı"
             value={brand}
             onChange={(event) => setBrand(event.target.value)}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -352,7 +353,7 @@ export function ProductForm({
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
           >
             <option value="Yeni">Yeni</option>
-            <option value="Cikma">kma</option>
+            <option value="Çıkma">Çıkma</option>
           </select>
         </div>
 
@@ -374,7 +375,7 @@ export function ProductForm({
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
             }`}
           >
-            <option value="">Kategori seiniz</option>
+            <option value="">Kategori seçiniz</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -392,11 +393,11 @@ export function ProductForm({
           htmlFor="description"
           className="text-xs font-medium text-gray-600"
         >
-          rn Aklamas
+          Ürün Açıklaması
         </label>
         <textarea
           id="description"
-          placeholder="rn hakknda detayl bilgi..."
+          placeholder="Ürün hakkında detaylı bilgi..."
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           className="min-h-[120px] rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -411,7 +412,7 @@ export function ProductForm({
             onChange={(event) => setIsFeatured(event.target.checked)}
             className="h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-400"
           />
-          ne kan
+          Öne çıkan
         </label>
         <label className="flex cursor-pointer items-center gap-2">
           <input
@@ -427,7 +428,7 @@ export function ProductForm({
       {!isEditing && (
         <div className="flex flex-col gap-3">
           <label className="text-xs font-medium text-gray-600">
-            rn Grselleri
+            Ürün Görselleri
           </label>
 
           <UploadDropzone
@@ -441,7 +442,10 @@ export function ProductForm({
                 name: file.name,
               }));
               setImages((prev) => [...prev, ...mapped]);
-              setMessage({ type: "success", text: `${files.length} grsel yklendi.` });
+              setMessage({
+                type: "success",
+                text: `${files.length} görsel yüklendi.`,
+              });
             }}
             onUploadError={(error) => {
               setIsUploading(false);
@@ -470,9 +474,11 @@ export function ProductForm({
               }`,
             }}
             content={{
-              label: isUploading ? "Ykleniyor..." : "Grsel yklemek iin tklayn veya srkleyin",
-              allowedContent: "PNG, JPG, WEBP  Maks. 4MB  En fazla 8 grsel",
-              button: isUploading ? "Ykleniyor..." : "Dosya Se",
+              label: isUploading
+                ? "Yükleniyor..."
+                : "Görsel yüklemek için tıklayın veya sürükleyin",
+              allowedContent: "PNG, JPG, WEBP  Maks. 4MB  En fazla 8 görsel",
+              button: isUploading ? "Yükleniyor..." : "Dosya Seç",
             }}
           />
 
@@ -523,10 +529,10 @@ export function ProductForm({
         >
           {isPending
             ? isEditing
-              ? "Gncelleniyor..."
+              ? "Güncelleniyor..."
               : "Kaydediliyor..."
             : isEditing
-              ? "Gncelle"
+              ? "Güncelle"
               : "Kaydet"}
         </button>
         {isEditing && (
@@ -535,7 +541,7 @@ export function ProductForm({
             onClick={() => router.push("/admin/products")}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50"
           >
-            ptal
+            İptal
           </button>
         )}
       </div>

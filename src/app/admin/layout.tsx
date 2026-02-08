@@ -38,7 +38,7 @@ export default async function AdminLayout({
               </svg>
               <input
                 type="text"
-                placeholder="rn veya kategori ara..."
+                placeholder="Ürün veya kategori ara..."
                 className="h-10 w-80 rounded-lg border border-gray-200 bg-gray-50 pl-10 pr-4 text-sm placeholder:text-gray-400 focus:border-gray-300 focus:bg-white focus:outline-none focus:ring-1 focus:ring-gray-300"
               />
             </div>
@@ -57,7 +57,7 @@ export default async function AdminLayout({
             <div className="flex items-center gap-3 border-l border-gray-200 pl-4">
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">{ADMIN_EMAIL}</p>
-                <p className="text-xs text-gray-500">Ynetici</p>
+                <p className="text-xs text-gray-500">Yönetici</p>
               </div>
               <div className="h-10 w-10 rounded-full bg-gray-900 flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">A</span>

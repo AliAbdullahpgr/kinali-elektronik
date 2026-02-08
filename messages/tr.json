@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "layout": {
+      "title": "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
+      "description": "2004 yılından günümüze televizyon, telefon, uydu ve kamera teknik servis hizmetleri. Haznedar Mah. Şevketdağ Cd. No:88 Güngören/İstanbul.",
+      "openGraphTitle": "Kınalı Elektronik | İstanbul Elektronik Teknik Servis",
+      "openGraphDescription": "2004 yılından günümüze güvenle televizyon, telefon, uydu ve kamera teknik servis hizmetleri.",
+      "siteName": "Kınalı Elektronik"
+    },
+    "home": {
+      "title": "Kınalı Elektronik | İstanbul Elektronik Servis ve Uygun Fiyat",
+      "description": "Haznedar Mah. Şevketdağ Cd. No:88 Güngören/İstanbul adresinde, 2004 yılından günümüze televizyon, telefon, uydu ve kamera teknik servis hizmetleri."
+    }
+  },
+  "storefront": {
+    "header": {
+      "topline": "GÜNGÖREN / İSTANBUL - HAFTANIN 7 GÜNÜ AÇIK",
+      "searchPlaceholder": "Ürün ara...",
+      "searchAria": "Ürün ara",
+      "searchButton": "Ara",
+      "callNow": "HEMEN ARA"
+    },
+    "searchBar": {
+      "categories": "Kategoriler",
+      "allCategories": "Tüm Kategoriler",
+      "searchPlaceholder": "Ürün arayın...",
+      "searchAria": "Ürün ara",
+      "whatsappAria": "WhatsApp ile iletişime geç",
+      "whatsappLabel": "WhatsApp ile İletişime Geç"
+    },
+    "common": {
+      "allCategories": "Tüm Kategoriler",
+      "searchProduct": "Ürün ara",
+      "searchResults": "Arama Sonuçları",
+      "allProducts": "Tüm Ürünler",
+      "viewAllProducts": "Tüm Ürünleri Gör",
+      "whatsappContact": "WhatsApp ile İletişime Geç",
+      "callNow": "Hemen Ara"
+    },
+    "product": {
+      "productCode": "Ürün Kodu",
+      "price": "Fiyat",
+      "askOnWhatsapp": "WhatsApp ile Sor",
+      "defaultDescription": "Ürün bilgileri kısa sürede güncellenecektir. Detaylı bilgi için bizimle iletişime geçin."
+    }
+  },
+  "admin": {
+    "common": {
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "edit": "Düzenle",
+      "featured": "Öne Çıkan",
+      "product": "Ürün",
+      "products": "Ürünler",
+      "category": "Kategori",
+      "categories": "Kategoriler",
+      "image": "Görsel",
+      "settings": "Ayarlar",
+      "search": "Ara"
+    },
+    "messages": {
+      "saveSuccess": "Kayıt başarıyla tamamlandı.",
+      "updateSuccess": "Güncelleme başarıyla tamamlandı.",
+      "deleteConfirm": "Bu işlem geri alınamaz."
+    }
+  }
+}

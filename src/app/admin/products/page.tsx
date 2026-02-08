@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+
+import { formatNumberTR } from "~/lib/formatters";
 import { api } from "~/trpc/react";
 
 export default function AdminProductsPage() {
@@ -28,12 +30,12 @@ export default function AdminProductsPage() {
   return (
     <div className="mx-auto max-w-5xl space-y-6">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">rnler</h1>
+        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">Ürünler</h1>
         <Link
           href="/admin/products/new"
           className="shrink-0 rounded-xl bg-gray-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 sm:px-4 sm:py-2.5"
         >
-          Yeni rn
+          Yeni Ürün
         </Link>
       </div>
 
@@ -56,16 +58,16 @@ export default function AdminProductsPage() {
             </svg>
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-gray-900">Henz rn yok</p>
+            <p className="text-sm font-medium text-gray-900">Henüz ürün yok</p>
             <p className="text-xs text-gray-500">
-              Yeni rn ekleyerek balayn
+              Yeni ürün ekleyerek başlayın
             </p>
           </div>
           <Link
             href="/admin/products/new"
             className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
-            lk rn Ekle
+            İlk Ürün Ekle
           </Link>
         </div>
       ) : (
@@ -87,7 +89,7 @@ export default function AdminProductsPage() {
                     <p className="truncate font-medium text-gray-900">{product.title}</p>
                     <p className="text-xs text-gray-500">{product.productCode}</p>
                     <p className="mt-1 text-sm font-semibold text-gray-900">
-                      {Number(product.price).toLocaleString("tr-TR")} {product.currency ?? "TL"}
+                      {formatNumberTR(Number(product.price))} {product.currency ?? "TL"}
                     </p>
                   </div>
                   <span
@@ -109,7 +111,7 @@ export default function AdminProductsPage() {
                       href={`/admin/products/${product.id}/edit`}
                       className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                     >
-                      Dzenle
+                      Düzenle
                     </Link>
                     {showDeleteConfirm === product.id ? (
                       <div className="flex items-center gap-1">
@@ -124,7 +126,7 @@ export default function AdminProductsPage() {
                           onClick={() => setShowDeleteConfirm(null)}
                           className="rounded-lg border border-gray-300 bg-white px-2 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                         >
-                          ptal
+                          İptal
                         </button>
                       </div>
                     ) : (
@@ -147,7 +149,7 @@ export default function AdminProductsPage() {
               <table className="w-full text-left text-sm text-gray-700">
                 <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500">
                   <tr>
-                    <th className="whitespace-nowrap px-4 py-3 font-medium">rn</th>
+                    <th className="whitespace-nowrap px-4 py-3 font-medium">Ürün</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Kategori</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Fiyat</th>
                     <th className="whitespace-nowrap px-4 py-3 font-medium">Durum</th>
@@ -176,7 +178,7 @@ export default function AdminProductsPage() {
                         {product.category?.name ?? "-"}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-gray-600">
-                        {Number(product.price).toLocaleString("tr-TR")}{" "}
+                        {formatNumberTR(Number(product.price))}{" "}
                         {product.currency ?? "TL"}
                       </td>
                       <td className="px-4 py-3">
@@ -196,7 +198,7 @@ export default function AdminProductsPage() {
                             href={`/admin/products/${product.id}/edit`}
                             className="whitespace-nowrap rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                           >
-                            Dzenle
+                            Düzenle
                           </Link>
                           {showDeleteConfirm === product.id ? (
                             <div className="flex items-center gap-1">
@@ -211,7 +213,7 @@ export default function AdminProductsPage() {
                                 onClick={() => setShowDeleteConfirm(null)}
                                 className="whitespace-nowrap rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
                               >
-                                ptal
+                                İptal
                               </button>
                             </div>
                           ) : (

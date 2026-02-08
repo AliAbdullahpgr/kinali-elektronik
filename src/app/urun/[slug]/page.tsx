@@ -1,6 +1,7 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 
+import { formatNumberTR } from "~/lib/formatters";
 import { api } from "~/trpc/server";
 import { Header } from "~/app/_components/header";
 import { StickyCta } from "~/app/_components/sticky-cta";
@@ -11,8 +12,12 @@ type PageProps = {
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = await api.product.bySlug({ slug });
-  if (!product) return notFound();
+  const resolved = await api.product.resolveBySlug({ slug });
+  if (!resolved.product) return notFound();
+  if (resolved.redirectTo && resolved.redirectTo !== slug) {
+    permanentRedirect(`/urun/${resolved.redirectTo}`);
+  }
+  const product = resolved.product;
 
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali-elektronik.vercel.app";
@@ -181,7 +186,7 @@ export default async function ProductPage({ params }: PageProps) {
               {/* Price */}
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl font-bold text-kinali-price">
-                  {Number(product.price).toLocaleString("tr-TR")}
+                  {formatNumberTR(Number(product.price))}
                 </span>
                 <span className="text-xl font-semibold text-kinali-price">
                   {product.currency ?? "TL"}
@@ -240,8 +245,9 @@ export default async function ProductPage({ params }: PageProps) {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const product = await api.product.bySlug({ slug });
-  if (!product) return {};
+  const resolved = await api.product.resolveBySlug({ slug });
+  if (!resolved.product) return {};
+  const product = resolved.product;
 
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali-elektronik.vercel.app";

@@ -14,7 +14,7 @@ export function Hero() {
           {/* Badge */}
           <div className="mb-6 inline-flex overflow-hidden rounded-full border border-brand-dark/10 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
             <span className="text-[10px] font-bold uppercase tracking-widest text-brand-dark sm:text-xs">
-              Premium Elektronik Tamir & Parça
+              Üst Düzey Elektronik Tamir ve Parça
             </span>
           </div>
 

@@ -1,6 +1,7 @@
 import pkg from "bcryptjs";
 const { hash } = pkg;
 import { PrismaClient } from "@prisma/client";
+import slugify from "@sindresorhus/slugify";
 
 const prisma = new PrismaClient();
 
@@ -322,7 +323,21 @@ const productsSeed = [
 ];
 
 function normalizeProductCode(code) {
-  return code.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return slugify(code ?? "", {
+    locale: "tr",
+    separator: " ",
+    decamelize: false,
+    lowercase: true,
+  }).replace(/[^a-z0-9]/g, "");
+}
+
+function normalizeSearchText(text) {
+  return slugify(text ?? "", {
+    locale: "tr",
+    separator: " ",
+    decamelize: false,
+    lowercase: true,
+  }).replace(/[^a-z0-9]/g, "");
 }
 
 async function main() {
@@ -381,6 +396,9 @@ async function main() {
           price: product.price,
           productCode: product.productCode,
           normalizedProductCode: normalizeProductCode(product.productCode),
+          searchNormalized: normalizeSearchText(
+            `${product.title} ${product.productCode} ${product.brand ?? ""}`
+          ),
           brand: product.brand,
           condition: product.condition,
           isFeatured: product.isFeatured,

@@ -42,6 +42,7 @@ model Product {
     currency              String         @default("TRY")
     productCode           String
     normalizedProductCode String         @map("normalized_product_code")
+    searchNormalized      String         @default("") @map("search_normalized")
     brand                 String?
     condition             String?
     isFeatured            Boolean        @default(false)
@@ -53,8 +54,26 @@ model Product {
     updatedAt             DateTime       @updatedAt
 
     @@index([normalizedProductCode])
+    @@index([searchNormalized])
     @@index([categoryId])
     @@index([isFeatured])
+}
+
+enum RedirectEntityType {
+    PRODUCT
+    CATEGORY
+}
+
+model SlugRedirect {
+    id         String             @id @default(cuid())
+    entityType RedirectEntityType @map("entity_type")
+    fromSlug   String             @map("from_slug")
+    toSlug     String             @map("to_slug")
+    createdAt  DateTime           @default(now()) @map("created_at")
+    updatedAt  DateTime           @updatedAt @map("updated_at")
+
+    @@unique([entityType, fromSlug])
+    @@index([entityType, toSlug])
 }
 
 model ProductImage {

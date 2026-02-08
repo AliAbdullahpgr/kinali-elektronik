@@ -23,14 +23,14 @@ export default function AdminLoginPage() {
       });
 
       if (!response.ok) {
-        setError("E-posta veya sifre hatali.");
+        setError("E-posta veya şifre hatalı.");
         return;
       }
 
       const from = searchParams.get("from") || "/admin";
       window.location.href = from;
     } catch {
-      setError("Giri? yapilamadi. Tekrar deneyin.");
+      setError("Giriş yapılamadı. Tekrar deneyin.");
     } finally {
       setIsLoading(false);
     }
@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
         onSubmit={onSubmit}
         className="flex w-full max-w-sm flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
       >
-        <h1 className="text-lg font-semibold text-gray-900">Admin Giri?</h1>
+        <h1 className="text-lg font-semibold text-gray-900">Yönetici Girişi</h1>
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-xs font-medium text-gray-600">
@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="password" className="text-xs font-medium text-gray-600">
-            ?ifre
+            Şifre
           </label>
           <input
             id="password"
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
           disabled={isLoading}
           className="rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isLoading ? "Giri? yapiliyor..." : "Giri? Yap"}
+          {isLoading ? "Giriş yapılıyor..." : "Giriş Yap"}
         </button>
       </form>
     </main>

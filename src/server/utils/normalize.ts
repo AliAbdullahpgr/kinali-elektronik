@@ -1,3 +1,9 @@
+import { toCompactTurkishSearchKey } from "~/lib/turkish";
+
 export function normalizeProductCode(input: string) {
-  return input.replace(/[-_\s]+/g, "").toLowerCase().trim();
+  return toCompactTurkishSearchKey(input);
+}
+
+export function normalizeSearchText(input: string) {
+  return toCompactTurkishSearchKey(input);
 }

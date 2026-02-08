@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 import { api } from "~/trpc/server";
 import { ProductCard } from "~/app/_components/product-card";
@@ -15,8 +15,12 @@ export default async function CategoryPage({
   searchParams,
 }: PageProps) {
   const { slug } = await params;
-  const category = await api.category.bySlug({ slug });
-  if (!category) return notFound();
+  const resolved = await api.category.resolveBySlug({ slug });
+  if (!resolved.category) return notFound();
+  if (resolved.redirectTo && resolved.redirectTo !== slug) {
+    permanentRedirect(`/kategori/${resolved.redirectTo}`);
+  }
+  const category = resolved.category;
 
   const searchParamsResolved = await searchParams;
   const brand =
@@ -97,8 +101,9 @@ export default async function CategoryPage({
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const category = await api.category.bySlug({ slug });
-  if (!category) return {};
+  const resolved = await api.category.resolveBySlug({ slug });
+  if (!resolved.category) return {};
+  const category = resolved.category;
 
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinali-elektronik.vercel.app";

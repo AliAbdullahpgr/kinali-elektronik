@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+import { turkishIncludes } from "~/lib/turkish";
 import { api } from "~/trpc/react";
 
 export default function MediaLibraryPage() {
@@ -8,7 +10,6 @@ export default function MediaLibraryPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Collect all images from products
   const allImages = products?.flatMap((product) =>
     product.images.map((img) => ({
       ...img,
@@ -20,8 +21,8 @@ export default function MediaLibraryPage() {
 
   const filteredImages = allImages.filter(
     (img) =>
-      img.productTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      img.productCode.toLowerCase().includes(searchQuery.toLowerCase())
+      turkishIncludes(img.productTitle, searchQuery) ||
+      turkishIncludes(img.productCode, searchQuery)
   );
 
   if (isLoading) {
@@ -36,12 +37,11 @@ export default function MediaLibraryPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Medya Ktphanesi</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Medya Kütüphanesi</h1>
           <p className="text-sm text-gray-500 mt-1">
-            Tm rn grselleriniz burada. Toplam {allImages.length} grsel.
+            Tüm ürün görselleriniz burada. Toplam {allImages.length} görsel.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -72,7 +72,6 @@ export default function MediaLibraryPage() {
         </div>
       </div>
 
-      {/* Search */}
       <div className="relative">
         <svg className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -81,22 +80,21 @@ export default function MediaLibraryPage() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="rn ad veya kodu ile ara..."
+          placeholder="Ürün adı veya kodu ile ara..."
           className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm placeholder:text-gray-400 focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
         />
       </div>
 
-      {/* Content */}
       {filteredImages.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center">
           <svg className="h-16 w-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-          <h3 className="text-lg font-semibold text-gray-900">Grsel Bulunamad</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Görsel Bulunamadı</h3>
           <p className="text-sm text-gray-500 mt-1">
             {searchQuery
-              ? "Arama kriterlerinize uygun grsel bulunamad."
-              : "Henz hi grsel yklenmemi."}
+              ? "Arama kriterlerinize uygun görsel bulunamadı."
+              : "Henüz hiç görsel yüklenmemiş."}
           </p>
         </div>
       ) : viewMode === "grid" ? (
@@ -138,16 +136,16 @@ export default function MediaLibraryPage() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Grsel
+                  Görsel
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  rn
+                  Ürün
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
                   Kod
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  lem
+                  İşlem
                 </th>
               </tr>
             </thead>
@@ -181,7 +179,7 @@ export default function MediaLibraryPage() {
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
-                      Grntle
+                      Görüntüle
                     </a>
                   </td>
                 </tr>
@@ -191,21 +189,20 @@ export default function MediaLibraryPage() {
         </div>
       )}
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <div className="rounded-xl border border-gray-200 bg-white p-4 text-center">
           <p className="text-2xl font-bold text-gray-900">{allImages.length}</p>
-          <p className="text-xs text-gray-500">Toplam Grsel</p>
+          <p className="text-xs text-gray-500">Toplam Görsel</p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-white p-4 text-center">
           <p className="text-2xl font-bold text-gray-900">{products?.length ?? 0}</p>
-          <p className="text-xs text-gray-500">rn Says</p>
+          <p className="text-xs text-gray-500">Ürün Sayısı</p>
         </div>
         <div className="rounded-xl border border-gray-200 bg-white p-4 text-center">
           <p className="text-2xl font-bold text-gray-900">
             {products?.length ? (allImages.length / products.length).toFixed(1) : 0}
           </p>
-          <p className="text-xs text-gray-500">Ortalama/rn</p>
+          <p className="text-xs text-gray-500">Ortalama/Ürün</p>
         </div>
       </div>
     </div>

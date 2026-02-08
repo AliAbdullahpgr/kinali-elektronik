@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatNumberTR } from "~/lib/formatters";
 
 type Product = {
   id: string;
@@ -73,7 +74,7 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="text-xs text-text-secondary">Fiyat</span>
             <div className="flex items-baseline gap-1">
               <span className="font-display text-lg font-bold text-brand-dark">
-                {priceValue.toLocaleString("tr-TR")}
+                {formatNumberTR(priceValue)}
               </span>
               <span className="text-xs font-medium text-text-secondary">
                 {currencyLabel}

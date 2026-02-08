@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
-    title: "Ana Men",
+    title: "Ana Menü",
     items: [
       {
-        label: "Dashboard",
+        label: "Gösterge Paneli",
         href: "/admin",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,10 +19,10 @@ const menuItems = [
     ],
   },
   {
-    title: "rn Ynetimi",
+    title: "Ürün Yönetimi",
     items: [
       {
-        label: "Tm rnler",
+        label: "Tüm Ürünler",
         href: "/admin/products",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,7 +31,7 @@ const menuItems = [
         ),
       },
       {
-        label: "Yeni rn Ekle",
+        label: "Yeni Ürün Ekle",
         href: "/admin/products/new",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,10 +51,10 @@ const menuItems = [
     ],
   },
   {
-    title: "erik",
+    title: "İçerik",
     items: [
       {
-        label: "ne kanlar",
+        label: "Öne Çıkanlar",
         href: "/admin/featured",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,7 +63,7 @@ const menuItems = [
         ),
       },
       {
-        label: "Medya Ktphanesi",
+        label: "Medya Kütüphanesi",
         href: "/admin/media",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -87,7 +87,7 @@ const menuItems = [
         ),
       },
       {
-        label: "Site nizleme",
+        label: "Siteyi Görüntüle",
         href: "/",
         icon: (
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,18 +105,16 @@ export function AdminSidebar() {
 
   return (
     <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-white border-r border-gray-200">
-      {/* Logo */}
       <div className="flex h-16 items-center gap-2 border-b border-gray-200 px-6">
         <div className="h-8 w-8 rounded-lg bg-gray-900 flex items-center justify-center">
           <span className="text-sm font-bold text-white">K</span>
         </div>
         <div>
           <h1 className="text-sm font-bold text-gray-900">KINALI</h1>
-          <p className="text-[10px] text-gray-500">Admin Panel</p>
+          <p className="text-[10px] text-gray-500">Yönetim Paneli</p>
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-4 py-4">
         {menuItems.map((section) => (
           <div key={section.title} className="mb-6">
@@ -156,7 +154,6 @@ export function AdminSidebar() {
           </div>
         ))}
       </nav>
-
     </aside>
   );
 }
@@ -168,7 +165,7 @@ export function MobileHeader({ email }: { email: string }) {
         <div className="h-8 w-8 rounded-lg bg-gray-900 flex items-center justify-center">
           <span className="text-sm font-bold text-white">K</span>
         </div>
-        <span className="text-sm font-bold text-gray-900">Admin</span>
+        <span className="text-sm font-bold text-gray-900">Yönetim</span>
       </div>
       <MobileMenu email={email} />
     </header>
@@ -190,16 +187,14 @@ function MobileMenu({ email }: { email: string }) {
         </svg>
       </label>
 
-      {/* Backdrop */}
       <label
         htmlFor="mobile-menu"
         className="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity"
       />
 
-      {/* Menu */}
       <div className="fixed inset-y-0 right-0 z-50 w-72 translate-x-full bg-white shadow-xl transition-transform peer-checked:translate-x-0">
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
-          <span className="text-sm font-semibold text-gray-900">Men</span>
+          <span className="text-sm font-semibold text-gray-900">Menü</span>
           <label
             htmlFor="mobile-menu"
             className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg hover:bg-gray-100"
@@ -252,7 +247,7 @@ function MobileMenu({ email }: { email: string }) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">{email}</p>
-              <p className="text-xs text-gray-500">Ynetici</p>
+              <p className="text-xs text-gray-500">Yönetici</p>
             </div>
           </div>
         </div>

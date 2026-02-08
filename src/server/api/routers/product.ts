@@ -1,7 +1,9 @@
 import { z } from "zod";
+import { RedirectEntityType } from "@prisma/client";
 
 import { adminProcedure, createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { normalizeProductCode } from "~/server/utils/normalize";
+import { toRomanTurkishSlug } from "~/lib/turkish";
+import { normalizeProductCode, normalizeSearchText } from "~/server/utils/normalize";
 import { env } from "~/env";
 import {
   placeholderAdminProducts,
@@ -14,6 +16,35 @@ import {
 
 const usePlaceholderData = env.USE_PLACEHOLDERS;
 
+const ensureUniqueProductSlug = async (
+  db: {
+    product: {
+      findFirst: (...args: any[]) => Promise<{ id: string } | null>;
+    };
+  },
+  desiredSlug: string,
+  excludeId?: string
+) => {
+  const baseSlug = toRomanTurkishSlug(desiredSlug || "urun") || "urun";
+  let candidate = baseSlug;
+  let suffix = 2;
+
+  while (
+    await db.product.findFirst({
+      where: {
+        slug: candidate,
+        ...(excludeId ? { NOT: { id: excludeId } } : {}),
+      },
+      select: { id: true },
+    })
+  ) {
+    candidate = `${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+
+  return candidate;
+};
+
 const productSelect = {
   id: true,
   title: true,
@@ -23,6 +54,7 @@ const productSelect = {
   currency: true,
   productCode: true,
   normalizedProductCode: true,
+  searchNormalized: true,
   brand: true,
   condition: true,
   isFeatured: true,
@@ -105,6 +137,51 @@ export const productRouter = createTRPCRouter({
         },
       });
     }),
+  resolveBySlug: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ ctx, input }) => {
+      if (usePlaceholderData) {
+        return {
+          product: placeholderProductBySlug(input.slug),
+          redirectTo: null as string | null,
+        };
+      }
+
+      const directProduct = await ctx.db.product.findUnique({
+        where: { slug: input.slug },
+        include: {
+          images: { orderBy: { position: "asc" } },
+          category: true,
+        },
+      });
+      if (directProduct) {
+        return { product: directProduct, redirectTo: null as string | null };
+      }
+
+      const redirect = await ctx.db.slugRedirect.findUnique({
+        where: {
+          entityType_fromSlug: {
+            entityType: RedirectEntityType.PRODUCT,
+            fromSlug: input.slug,
+          },
+        },
+      });
+      if (!redirect) {
+        return { product: null, redirectTo: null as string | null };
+      }
+
+      const redirectedProduct = await ctx.db.product.findUnique({
+        where: { slug: redirect.toSlug },
+        include: {
+          images: { orderBy: { position: "asc" } },
+          category: true,
+        },
+      });
+      return {
+        product: redirectedProduct,
+        redirectTo: redirectedProduct ? redirect.toSlug : null,
+      };
+    }),
   search: publicProcedure
     .input(
       z.object({
@@ -113,21 +190,29 @@ export const productRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const normalized = normalizeProductCode(input.query);
+      const normalizedCode = normalizeProductCode(input.query);
+      const normalizedSearch = normalizeSearchText(input.query);
+      const searchClauses = [];
+      if (normalizedSearch) {
+        searchClauses.push({ searchNormalized: { contains: normalizedSearch } });
+      }
+      if (normalizedCode) {
+        searchClauses.push({ normalizedProductCode: { contains: normalizedCode } });
+      }
+
       if (usePlaceholderData) {
         return placeholderSearchProducts(input.query, input.categorySlug);
       }
+
       return ctx.db.product.findMany({
         where: {
           isActive: true,
           category: input.categorySlug
             ? { slug: input.categorySlug }
             : undefined,
-          OR: [
-            { title: { contains: input.query, mode: "insensitive" } },
-            { productCode: { contains: input.query, mode: "insensitive" } },
-            { normalizedProductCode: { contains: normalized } },
-          ],
+          OR: searchClauses.length
+            ? searchClauses
+            : [{ title: { contains: input.query, mode: "insensitive" } }],
         },
         include: {
           images: { orderBy: { position: "asc" }, take: 1 },
@@ -188,14 +273,19 @@ export const productRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const normalized = normalizeProductCode(input.productCode);
+      const searchNormalized = normalizeSearchText(
+        `${input.title} ${input.productCode} ${input.brand ?? ""}`
+      );
+      const slug = await ensureUniqueProductSlug(ctx.db, input.slug);
       return ctx.db.product.create({
         data: {
           title: input.title,
-          slug: input.slug,
+          slug,
           description: input.description ?? null,
           price: input.price,
           productCode: input.productCode,
           normalizedProductCode: normalized,
+          searchNormalized,
           brand: input.brand ?? null,
           condition: input.condition ?? null,
           isFeatured: input.isFeatured ?? false,
@@ -234,15 +324,25 @@ export const productRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const normalized = normalizeProductCode(input.productCode);
-      return ctx.db.product.update({
+      const searchNormalized = normalizeSearchText(
+        `${input.title} ${input.productCode} ${input.brand ?? ""}`
+      );
+      const slug = await ensureUniqueProductSlug(ctx.db, input.slug, input.id);
+      const previous = await ctx.db.product.findUnique({
+        where: { id: input.id },
+        select: { slug: true },
+      });
+
+      const updated = await ctx.db.product.update({
         where: { id: input.id },
         data: {
           title: input.title,
-          slug: input.slug,
+          slug,
           description: input.description ?? null,
           price: input.price,
           productCode: input.productCode,
           normalizedProductCode: normalized,
+          searchNormalized,
           brand: input.brand ?? null,
           condition: input.condition ?? null,
           isFeatured: input.isFeatured ?? false,
@@ -251,6 +351,25 @@ export const productRouter = createTRPCRouter({
         },
         select: productSelect,
       });
+
+      if (previous && previous.slug !== slug) {
+        await ctx.db.slugRedirect.upsert({
+          where: {
+            entityType_fromSlug: {
+              entityType: RedirectEntityType.PRODUCT,
+              fromSlug: previous.slug,
+            },
+          },
+          update: { toSlug: slug },
+          create: {
+            entityType: RedirectEntityType.PRODUCT,
+            fromSlug: previous.slug,
+            toSlug: slug,
+          },
+        });
+      }
+
+      return updated;
     }),
   remove: adminProcedure
     .input(z.object({ id: z.string() }))

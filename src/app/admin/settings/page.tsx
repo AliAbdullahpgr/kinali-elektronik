@@ -7,21 +7,19 @@ export default function SettingsPage() {
 
   const tabs = [
     { id: "general", label: "Genel", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" },
-    { id: "contact", label: "letiim", icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" },
+    { id: "contact", label: "İletişim", icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" },
     { id: "seo", label: "SEO", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
   ];
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Ayarlar</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Maaza ayarlarnz buradan ynetebilirsiniz.
+          Mağaza ayarlarınızı buradan yönetebilirsiniz.
         </p>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 border-b border-gray-200 pb-2 overflow-x-auto">
         {tabs.map((tab) => (
           <button
@@ -41,7 +39,6 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      {/* Tab Content */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         {activeTab === "general" && (
           <div className="space-y-6">
@@ -50,21 +47,21 @@ export default function SettingsPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Maaza Ad
+                    Mağaza Adı
                   </label>
                   <input
                     type="text"
-                    defaultValue="KINALI ELEKTRONK"
+                    defaultValue="KINALI ELEKTRONİK"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Maaza Slogan
+                    Mağaza Sloganı
                   </label>
                   <input
                     type="text"
-                    defaultValue="Gngren'in en gvenilir elektronik teknik servisi"
+                    defaultValue="Güngören'in güvenilir elektronik teknik servisi"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   />
                 </div>
@@ -76,16 +73,16 @@ export default function SettingsPage() {
                     defaultValue="TRY"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   >
-                    <option value="TRY">Trk Liras ()</option>
-                    <option value="USD">Amerikan Dolar ($)</option>
-                    <option value="EUR">Euro ()</option>
+                    <option value="TRY">Türk Lirası (₺)</option>
+                    <option value="USD">Amerikan Doları ($)</option>
+                    <option value="EUR">Euro (€)</option>
                   </select>
                 </div>
               </div>
             </div>
             <div className="pt-4 border-t border-gray-200">
               <button className="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800">
-                Deiiklikleri Kaydet
+                Değişiklikleri Kaydet
               </button>
             </div>
           </div>
@@ -94,12 +91,12 @@ export default function SettingsPage() {
         {activeTab === "contact" && (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">letiim Bilgileri</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">İletişim Bilgileri</h3>
               <div className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      WhatsApp Numaras
+                      WhatsApp Numarası
                     </label>
                     <input
                       type="text"
@@ -107,12 +104,13 @@ export default function SettingsPage() {
                       className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                     />
                     <p className="mt-1 text-xs text-gray-500">
-                      The settings are currently in demo mode. Changes will not be saved. To change the actual settings, you can edit the .env file.
+                      Bu bölüm şu an demo modundadır. Kalıcı değişiklik için `.env`
+                      dosyasını güncelleyebilirsiniz.
                     </p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Telefon Numaras
+                      Telefon Numarası
                     </label>
                     <input
                       type="text"
@@ -137,17 +135,17 @@ export default function SettingsPage() {
                   </label>
                   <textarea
                     rows={3}
-                    defaultValue="Merkez Mah. Fevzi akmak Cad. No:12/A Gngren / stanbul"
+                    defaultValue="Haznedar Mah. Şevketdağ Cd. No:88 Güngören / İstanbul"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
                   />
                 </div>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">alma Saatleri</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Çalışma Saatleri</h3>
               <div className="space-y-3">
                 {[
-                  { day: "Hafta i", hours: "09:00 - 20:00" },
+                  { day: "Hafta İçi", hours: "09:00 - 20:00" },
                   { day: "Cumartesi", hours: "09:00 - 20:00" },
                   { day: "Pazar", hours: "11:00 - 18:00" },
                 ].map((item) => (
@@ -164,7 +162,7 @@ export default function SettingsPage() {
             </div>
             <div className="pt-4 border-t border-gray-200">
               <button className="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800">
-                Deiiklikleri Kaydet
+                Değişiklikleri Kaydet
               </button>
             </div>
           </div>
@@ -173,29 +171,29 @@ export default function SettingsPage() {
         {activeTab === "seo" && (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">SEO Ayarlar</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">SEO Ayarları</h3>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Site Bal (Title Tag)
+                    Site Başlığı (Title Tag)
                   </label>
                   <input
                     type="text"
-                    defaultValue="KINALI ELEKTRONK | Gngren Elektronik Teknik Servis"
+                    defaultValue="KINALI ELEKTRONİK | Güngören Elektronik Teknik Servis"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   />
-                  <p className="mt-1 text-xs text-gray-500">60 karakteri gememesi nerilir.</p>
+                  <p className="mt-1 text-xs text-gray-500">60 karakteri geçmemesi önerilir.</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Meta Aklama
+                    Meta Açıklama
                   </label>
                   <textarea
                     rows={3}
-                    defaultValue="stanbul Gngren'de 15 yllk tecrbe ile telefon, tablet ve elektronik cihaz tamiri. Apple, Samsung, Xiaomi yetkili teknik servis kalitesinde hizmet."
+                    defaultValue="İstanbul Güngören'de uzun yıllık tecrübe ile televizyon, telefon, uydu ve kamera teknik servis hizmetleri."
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
                   />
-                  <p className="mt-1 text-xs text-gray-500">155-160 karakter aras ideal uzunluktur.</p>
+                  <p className="mt-1 text-xs text-gray-500">155-160 karakter arası idealdir.</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -203,10 +201,10 @@ export default function SettingsPage() {
                   </label>
                   <input
                     type="text"
-                    defaultValue="gngren telefon tamiri, elektronik servis, iphone tamir, samsung ekran deiimi"
+                    defaultValue="güngören elektronik servis, teknik servis, tv tamiri, telefon tamiri"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   />
-                  <p className="mt-1 text-xs text-gray-500">Virglle ayrarak yazn.</p>
+                  <p className="mt-1 text-xs text-gray-500">Virgülle ayırarak yazın.</p>
                 </div>
               </div>
             </div>
@@ -215,20 +213,22 @@ export default function SettingsPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    OG Grseli URL
+                    OG Görseli URL
                   </label>
                   <input
                     type="text"
                     placeholder="https://kinali-elektronik.com/og-image.jpg"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                   />
-                  <p className="mt-1 text-xs text-gray-500">Sosyal medya paylamlarnda grnecek grsel. (1200x630px nerilir)</p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    Sosyal medya paylaşımlarında görünecek görsel (1200x630 önerilir).
+                  </p>
                 </div>
               </div>
             </div>
             <div className="pt-4 border-t border-gray-200">
               <button className="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800">
-                Deiiklikleri Kaydet
+                Değişiklikleri Kaydet
               </button>
             </div>
           </div>

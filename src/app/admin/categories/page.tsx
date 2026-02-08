@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { UploadDropzone } from "~/app/_components/uploadthing";
+import { toRomanTurkishSlug } from "~/lib/turkish";
 import { api } from "~/trpc/react";
 
 const PLACEHOLDER_IMAGE = "/placeholder-category.svg";
@@ -115,16 +116,7 @@ export default function CategoriesPage() {
   };
 
   const generateSlug = (name: string) => {
-    return name
-      .toLowerCase()
-      .replace(/ğ/g, "g")
-      .replace(/ü/g, "u")
-      .replace(/ş/g, "s")
-      .replace(/ı/g, "i")
-      .replace(/ö/g, "o")
-      .replace(/ç/g, "c")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+    return toRomanTurkishSlug(name);
   };
 
   if (isLoading) {
@@ -143,7 +135,7 @@ export default function CategoriesPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Kategoriler</h1>
           <p className="mt-1 text-sm text-gray-500">
-            Landing page&apos;de gorunecek kategori bilgilerini buradan yonetin.
+            Ana sayfada görünecek kategori bilgilerini buradan yönetin.
           </p>
         </div>
         <button
@@ -176,7 +168,7 @@ export default function CategoriesPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Kategori Adi
+                Kategori Adı
               </label>
               <input
                 type="text"
@@ -186,19 +178,19 @@ export default function CategoriesPage() {
                   setNewSlug(generateSlug(event.target.value));
                 }}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
-                placeholder="Orn: Telefon"
+                placeholder="Örn: Telefon"
               />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                URL Slug
+                URL Kısa Adı
               </label>
               <input
                 type="text"
                 value={newSlug}
                 onChange={(event) => setNewSlug(event.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
-                placeholder="Orn: telefon"
+                placeholder="Örn: telefon"
               />
             </div>
           </div>
@@ -206,7 +198,7 @@ export default function CategoriesPage() {
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Gorsel URL (Opsiyonel)
+                Görsel URL (Opsiyonel)
               </label>
               <input
                 type="text"
@@ -216,7 +208,7 @@ export default function CategoriesPage() {
                 placeholder="https://..."
               />
               <p className="mt-1 text-xs text-gray-500">
-                URL girin veya asagidan dosya yukleyin.
+                URL girin veya aşağıdan dosya yükleyin.
               </p>
             </div>
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
@@ -236,10 +228,10 @@ export default function CategoriesPage() {
                 }}
                 content={{
                   label: isNewImageUploading
-                    ? "Yukleniyor..."
-                    : "Kategori gorseli yukle",
+                    ? "Yükleniyor..."
+                    : "Kategori görseli yükle",
                   allowedContent: "PNG, JPG, WEBP  |  Maks. 4MB",
-                  button: isNewImageUploading ? "Yukleniyor..." : "Dosya Sec",
+                  button: isNewImageUploading ? "Yükleniyor..." : "Dosya Seç",
                 }}
               />
             </div>
@@ -249,7 +241,7 @@ export default function CategoriesPage() {
             <div className="h-14 w-14 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
               <img
                 src={newImageUrl || PLACEHOLDER_IMAGE}
-                alt="Yeni kategori gorsel onizleme"
+                alt="Yeni kategori görsel önizleme"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -258,7 +250,7 @@ export default function CategoriesPage() {
               onClick={() => setNewImageUrl("")}
               className="rounded-lg border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-700 transition hover:bg-gray-50"
             >
-              Gorseli Kaldir
+              Görseli Kaldır
             </button>
           </div>
 
@@ -286,7 +278,7 @@ export default function CategoriesPage() {
               }}
               className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
             >
-              Iptal
+              İptal
             </button>
           </div>
 
@@ -307,13 +299,13 @@ export default function CategoriesPage() {
                   Kategori
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Gorsel
+                  Görsel
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
                   Slug
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Islemler
+                  İşlemler
                 </th>
               </tr>
             </thead>
@@ -324,7 +316,7 @@ export default function CategoriesPage() {
                     colSpan={4}
                     className="px-6 py-12 text-center text-sm text-gray-500"
                   >
-                    Henuz kategori eklenmemis.
+                    Henüz kategori eklenmemiş.
                   </td>
                 </tr>
               )}
@@ -352,7 +344,7 @@ export default function CategoriesPage() {
                         <div className="h-14 w-14 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
                           <img
                             src={editImageUrl || PLACEHOLDER_IMAGE}
-                            alt={`${category.name} gorsel onizleme`}
+                            alt={`${category.name} görsel önizleme`}
                             className="h-full w-full object-cover"
                           />
                         </div>
@@ -379,12 +371,12 @@ export default function CategoriesPage() {
                           }}
                           content={{
                             label: isEditImageUploading
-                              ? "Yukleniyor..."
-                              : "Yeni gorsel yukle",
+                              ? "Yükleniyor..."
+                              : "Yeni görsel yükle",
                             allowedContent: "PNG, JPG, WEBP",
                             button: isEditImageUploading
-                              ? "Yukleniyor..."
-                              : "Dosya Sec",
+                              ? "Yükleniyor..."
+                              : "Dosya Seç",
                           }}
                         />
                         <button
@@ -392,7 +384,7 @@ export default function CategoriesPage() {
                           onClick={() => setEditImageUrl("")}
                           className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50"
                         >
-                          Gorseli Kaldir
+                          Görseli Kaldır
                         </button>
                       </div>
                     ) : (
@@ -437,7 +429,7 @@ export default function CategoriesPage() {
                             onClick={resetEditState}
                             className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50"
                           >
-                            Iptal
+                            İptal
                           </button>
                         </>
                       ) : (
@@ -446,7 +438,7 @@ export default function CategoriesPage() {
                             href={`/kategori/${category.slug}`}
                             target="_blank"
                             className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
-                            title="Goruntule"
+                            title="Görüntüle"
                           >
                             <svg
                               className="h-4 w-4"
@@ -465,7 +457,7 @@ export default function CategoriesPage() {
                           <button
                             onClick={() => handleEdit(category)}
                             className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
-                            title="Duzenle"
+                            title="Düzenle"
                           >
                             <svg
                               className="h-4 w-4"
@@ -540,8 +532,8 @@ export default function CategoriesPage() {
                   Kategoriyi Sil
                 </h3>
                 <p className="text-sm text-gray-500">
-                  Bu kategoriyi silmek istediginizden emin misiniz? Bu islem geri
-                  alinamaz.
+                  Bu kategoriyi silmek istediğinizden emin misiniz? Bu işlem geri
+                  alınamaz.
                 </p>
               </div>
             </div>
@@ -550,7 +542,7 @@ export default function CategoriesPage() {
                 onClick={() => setDeleteId(null)}
                 className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
               >
-                Iptal
+                İptal
               </button>
               <button
                 onClick={() => {

@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 
@@ -18,6 +19,7 @@ function formatPhoneDisplay(phone: string) {
 }
 
 export function Header() {
+  const t = useTranslations("storefront.header");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +48,7 @@ export function Header() {
     <>
       <div className="bg-brand-dark text-white px-4 py-2 text-[10px] sm:text-xs font-medium tracking-wider flex justify-between items-center z-50 relative">
         <span className="opacity-80">
-          GÜNGÖREN / İSTANBUL - HAFTANIN 7 GÜNÜ AÇIK
+          {t("topline")}
         </span>
         <a
           href={`tel:${phoneNumber}`}
@@ -97,15 +99,15 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Ürün ara..."
+                placeholder={t("searchPlaceholder")}
                 className="w-48 bg-transparent text-xs text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="Ürün ara"
+                aria-label={t("searchAria")}
               />
               <button
                 type="submit"
                 className="rounded-full bg-brand-dark px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white transition hover:bg-black"
               >
-                Ara
+                {t("searchButton")}
               </button>
             </form>
 
@@ -133,7 +135,7 @@ export function Header() {
               href={`tel:${phoneNumber}`}
               className="hidden sm:flex items-center gap-2 rounded-full bg-brand-dark px-5 py-2.5 text-xs font-bold text-white transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand-dark/20"
             >
-              <span>HEMEN ARA</span>
+              <span>{t("callNow")}</span>
               <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
               </svg>
@@ -173,16 +175,16 @@ export function Header() {
               <input
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Ürün ara..."
+                placeholder={t("searchPlaceholder")}
                 className="flex-1 text-sm text-brand-dark placeholder:text-text-secondary focus:outline-none"
-                aria-label="Ürün ara"
+                aria-label={t("searchAria")}
                 autoFocus
               />
               <button
                 type="submit"
                 className="rounded-full bg-brand-dark px-4 py-2 text-xs font-bold uppercase tracking-wide text-white"
               >
-                Ara
+                {t("searchButton")}
               </button>
             </form>
           </div>
